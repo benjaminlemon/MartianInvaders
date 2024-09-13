@@ -1,2 +1,3 @@
 Test file
-Testing merge conflict
+Ben is the ruler of all!
+
