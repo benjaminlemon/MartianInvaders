@@ -36,3 +36,4 @@
 *.sh
 *.vscode
 *.xcodeproj
+Makefile
