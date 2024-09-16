@@ -9,7 +9,7 @@
 
 class Game{
     private:
-        // std::vector<enemy> enemies = {};
+        std::vector<Enemy*> enemies = {};
         // std::vector<bullet> bullets = {};
         sf::RenderWindow* window = nullptr;
         sf::Event event;

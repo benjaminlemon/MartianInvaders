@@ -4,14 +4,14 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics.hpp>
 
-class enemy{
+class Enemy{
     private:
         int health, speed;
         sf::Vector2f position;
-        sf::RectangleShape shape;
     public:
-        enemy();
-        enemy(int health, int speed, sf::Vector2f position, sf::RectangleShape shape);
+        sf::RectangleShape shape;
+        Enemy();
+        Enemy(int health, int speed, sf::Vector2f position, sf::RectangleShape shape);
         void updatePosition();
         void updateHealth();
         void destroy();

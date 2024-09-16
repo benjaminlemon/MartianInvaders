@@ -11,6 +11,8 @@ void Game::initialize()
 
 void Game::createEnemies()
 {
+    Enemy* enemy = new Enemy();
+    enemies.push_back(enemy);
 }
 
 void Game::processEvents()
@@ -56,8 +58,9 @@ void Game::update()
 {
     //Update
     window->clear(sf::Color::Black);
+    // createEnemies();
+
     //update NPC location
-    createEnemies();
     // for(enemy enemy: enemies){
     //     enemy.updatePosition();
     //     enemy.updateHealth();
@@ -77,9 +80,9 @@ void Game::render()
 {
 
     //Render
-    // for(enemy enemy: enemies){
-    //     window.draw(enemy.getShape());
-    // }
+    for(Enemy* enemy: enemies){
+        window->draw(enemy->shape);
+    }
 
     // for(bullet bullet: bullets){
     //     // window.draw(bullet)
