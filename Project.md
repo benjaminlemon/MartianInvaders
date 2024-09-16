@@ -31,26 +31,32 @@ Game:
 <!--Character:-->
 
 
-
-PC:
+Player:
     private:
         health, fireRate, dmg, speed, sprite/img, location, 
     
     public:
         all getters
         all setters
-        shoot();
+\        shoot();
+    https://www.sfml-dev.org/tutorials/2.6/graphics-transform.php
+
+    built in function to move entities around;
 <!--        destroyed();-->
         
 
 
-NPC:
+Enemy:
     private: health, speed, sprite/img, location
-    public: getters/setters, destroyed-frame/health
+    public: getters/setters
+    updatelocation()
+    destroyed-frame/health
 
 
 
 Bullet:
     private:
         location, velocity/speed, 
-    Public: damage();
+    Public: 
+        damage();
+        updateLocation()
