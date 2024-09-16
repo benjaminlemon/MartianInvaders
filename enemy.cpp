@@ -4,7 +4,7 @@ enemy::enemy()
 {
 }
 
-enemy::enemy(int health, int speed, int location[2], sf::RectangleShape shape)
+enemy::enemy(int health, int speed, sf::Vector2f position, sf::RectangleShape shape)
 {
 }
 

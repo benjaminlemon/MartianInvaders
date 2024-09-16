@@ -7,11 +7,11 @@
 class enemy{
     private:
         int health, speed;
-        int position[2];
+        sf::Vector2f position;
         sf::RectangleShape shape;
     public:
         enemy();
-        enemy(int health, int speed, int position[2], sf::RectangleShape shape);
+        enemy(int health, int speed, sf::Vector2f position, sf::RectangleShape shape);
         void updatePosition();
         void updateHealth();
         void destroy();

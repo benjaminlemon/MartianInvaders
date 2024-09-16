@@ -8,15 +8,20 @@
 #include "bullet.h"
 
 class Game{
-    //private:
-    std::vector<enemy> enemies = {};
-    std::vector<bullet> bullets = {};
-    void run();
+    private:
+        // std::vector<enemy> enemies = {};
+        // std::vector<bullet> bullets = {};
+        sf::RenderWindow* window = nullptr;
+        sf::Event event;
+        void initialize();
+        void createEnemies();
+        void processEvents();
+        void update();
+        void render();
     
-    /**
-     * Add enemies to game environment
-     */
-    void createEnemies();
+    public:
+        Game();
+        void run();
 };
 
 #endif
