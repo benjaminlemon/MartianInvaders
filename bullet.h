@@ -3,7 +3,8 @@
 
 class bullet{
     public:
-    void updateLocation();
+    void updatePosition();
+    void destroy();
 };
 
 #endif
