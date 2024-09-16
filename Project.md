@@ -47,10 +47,13 @@ Player:
 
 
 Enemy:
-    private: health, speed, sprite/img, location
-    public: getters/setters
-    updatelocation()
-    destroyed-frame/health
+    private: 
+        health, speed, sprite/img, location
+    public: 
+        getters/setters
+        updatelocation();
+        updateHealth();
+        destroyed-frame/health
 
 
 
