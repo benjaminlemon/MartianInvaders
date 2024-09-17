@@ -35,3 +35,31 @@ sf::RectangleShape Enemy::getShape() const
 {
     return shape;
 }
+
+void Enemy::updateHealth(Bullet *bullet)
+{
+    health -= bullet->getDmg();
+}
+
+void Enemy::updateHealth(Player *player)
+{
+    this->health = 0;
+}
+
+void Enemy::collides(std::vector<Bullet *> bullets)
+{
+    for(auto it = bullets.begin(); it != bullets.end();it++){
+        Bullet* bullet = *it;
+
+        if(this->shape.getGlobalBounds().intersects(bullet->getShape().getGlobalBounds())){
+            this->updateHealth(bullet);
+        }
+    }
+}
+
+void Enemy::collides(Player *player)
+{
+    if(this->shape.getGlobalBounds().intersects(player->shape.getGlobalBounds())){
+    this->updateHealth(player);
+    }
+}

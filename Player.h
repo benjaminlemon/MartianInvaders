@@ -16,6 +16,8 @@ class Player{
         void shoot();
         void updateHealth();
         void destroy();
+        sf::Vector2f getPosition(){return position;};
+        
 };
 
 #endif

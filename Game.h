@@ -14,8 +14,8 @@
 
 class Game{
     private:
-        // std::vector<bullet> bullets = {};
-        std::vector<Enemy*> enemies = {};
+        std::vector<Bullet*> bullets;
+        std::vector<Enemy*> enemies;
         Player* player;
         sf::Clock gameClock;
         sf::RenderWindow* window = nullptr;

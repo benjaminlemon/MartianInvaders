@@ -63,7 +63,7 @@ void Game::processEvents()
 
 void Game::update()
 {
-    //Update
+    //create new enemies
     window->clear(sf::Color::Black);
     // sf::Time time = gameClock.getElapsedTime();
     float timeElapsed = gameClock.getElapsedTime().asSeconds();
@@ -83,19 +83,30 @@ void Game::update()
         else{
             it++;
         }
-        //*iterator->updateHealth();
     }
 
+    // update bullet position
+     for(auto it = bullets.begin(); it !=bullets.end();){
+        Bullet* bullet = *it;
+        bullet->updatePosition();
+        if(bullet->getPosition().y > window->getSize().y){
+            bullet->destroy();
+            bullets.erase(it);
+        }
+        else{
+            it++;
+        }
+    }
+
+    //update enemy collisions
+    for(Enemy* enemy: enemies){
+        enemy->collides(bullets);
+    }
     // enemies.erase(std::remove_if(enemies))
     // for(Enemy* enemy: enemies){
     //     enemy->updatePosition();
     //     // enemy->updateHealth();
     // }
-
-    // update bullet location
-    //  for(bullet bullet: bullets){
-    //      bullet.updatePosition()
-    //  }
 
     //update player
         //updateHealth();
