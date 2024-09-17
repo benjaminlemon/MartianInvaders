@@ -73,17 +73,20 @@ void Game::update()
     };
 
     //update Enemy Position
-    for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end(); it++){
-        (*it)->updatePosition();
-        if((*it)->getPosition().y > 600){
-            (*it)->destroy();
+    for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end();){
+        Enemy* enemy = *it;
+        enemy->updatePosition();
+        if(enemy->getPosition().y > window->getSize().y){
+            enemy->destroy();
             enemies.erase(it);
-            it--;
+        }
+        else{
+            it++;
         }
         //*iterator->updateHealth();
     }
 
-    enemies.erase(std::remove_if(enemies))
+    // enemies.erase(std::remove_if(enemies))
     // for(Enemy* enemy: enemies){
     //     enemy->updatePosition();
     //     // enemy->updateHealth();
