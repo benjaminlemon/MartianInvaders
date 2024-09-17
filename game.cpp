@@ -58,7 +58,12 @@ void Game::update()
 {
     //Update
     window->clear(sf::Color::Black);
-    // createEnemies();
+    // sf::Time time = gameClock.getElapsedTime();
+    float timeElapsed = gameClock.getElapsedTime().asSeconds();
+    if(timeElapsed >=2.f){
+        createEnemies();
+        gameClock.restart();
+    };
 
     //update Enemy
     for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end(); it++){
