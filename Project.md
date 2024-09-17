@@ -23,6 +23,7 @@ Update()
             aa. OOB
         b. .collision(enemy vector);
         c. .destroy();
+        d. bullet();
     
     3. N Player
         a. .updatePosition();

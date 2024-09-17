@@ -65,7 +65,7 @@ void Game::update()
         gameClock.restart();
     };
 
-    //update Enemy
+    //update Enemy Position
     for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end(); it++){
         (*it)->updatePosition();
         if((*it)->getPosition().y > 600){
@@ -74,9 +74,9 @@ void Game::update()
             it--;
         }
         //*iterator->updateHealth();
-
-
     }
+
+    enemies.erase(std::remove_if(enemies))
     // for(Enemy* enemy: enemies){
     //     enemy->updatePosition();
     //     // enemy->updateHealth();

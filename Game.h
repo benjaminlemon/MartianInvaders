@@ -6,6 +6,8 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
+#include <vector> 
+#include <algorithm>
 #include "Enemy.h"
 #include "Bullet.h"
 
@@ -27,7 +29,6 @@ class Game{
     public:
         //constructor
         Game();
-
         void run();
 };
 
