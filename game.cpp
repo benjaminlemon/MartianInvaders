@@ -60,7 +60,7 @@ void Game::update()
     window->clear(sf::Color::Black);
     // sf::Time time = gameClock.getElapsedTime();
     float timeElapsed = gameClock.getElapsedTime().asSeconds();
-    if(timeElapsed >=2.f){
+    if(timeElapsed >=1.f){
         createEnemies();
         gameClock.restart();
     };

@@ -3,7 +3,7 @@
 Enemy::Enemy()
 {
     health = 1;
-    speed = 1;
+    speed = 2;
     position = sf::Vector2f((float)(rand()%751), 0.f);
     shape = sf::RectangleShape(sf::Vector2f(50.f, 50.f));
     shape.setFillColor(sf::Color::Red);
