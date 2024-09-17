@@ -1,7 +1,7 @@
-#include "game.h"
+#include "Game.h"
 #include "player.h"
-#include "enemy.h"
-#include "bullet.h"
+#include "Enemy.h"
+#include "Bullet.h"
 
 int main(){
     Game game;

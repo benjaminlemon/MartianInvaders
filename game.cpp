@@ -1,4 +1,4 @@
-#include "game.h"
+#include "Game.h"
 
 void Game::initialize()
 {
@@ -60,16 +60,27 @@ void Game::update()
     window->clear(sf::Color::Black);
     // createEnemies();
 
-    //update NPC location
-    // for(enemy enemy: enemies){
-    //     enemy.updatePosition();
-    //     enemy.updateHealth();
+    //update Enemy
+    for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end(); it++){
+        (*it)->updatePosition();
+        if((*it)->getPosition().y > 600){
+            (*it)->destroy();
+            enemies.erase(it);
+            it--;
+        }
+        //*iterator->updateHealth();
+
+
+    }
+    // for(Enemy* enemy: enemies){
+    //     enemy->updatePosition();
+    //     // enemy->updateHealth();
     // }
 
-    //update bullet location
-    // for(bullet bullet: bullets){
-    //     bullet.updatePosition();
-    // }
+    // update bullet location
+    //  for(bullet bullet: bullets){
+    //      bullet.updatePosition()
+    //  }
 
     //update player
         //updateHealth();

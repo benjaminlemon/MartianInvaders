@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/Keyboard.hpp>
-#include "enemy.h"
-#include "bullet.h"
+#include "Enemy.h"
+#include "Bullet.h"
 
 class Game{
     private:

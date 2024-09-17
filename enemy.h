@@ -12,10 +12,14 @@ class Enemy{
         sf::RectangleShape shape;
         Enemy();
         Enemy(int health, int speed, sf::Vector2f position, sf::RectangleShape shape);
+        //setters
         void updatePosition();
         void updateHealth();
         void destroy();
+
+        //getters
         sf::RectangleShape getShape()const;
+        sf::Vector2f getPosition() const;
 };
 
 #endif
