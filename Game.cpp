@@ -5,7 +5,10 @@ void Game::initialize()
     window = new sf::RenderWindow(sf::VideoMode(800,600), "Martian Invasion");
     //frame rate == monitor refresh to prevent tearing
     window->setVerticalSyncEnabled(true);
-
+    
+    //create player
+    player = new Player();
+    
     createEnemies();
 }
 
@@ -32,18 +35,22 @@ void Game::processEvents()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)||sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         //character.move(-1, 0);
+        player->move(-1,0);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)||sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         //character.move(1, 0);
+        player->move(1,0);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)||sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        //character.move(0, 1);
+        //character.move(0, -1);
+        player->move(0,-1);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)||sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        //character.move(0, -1);
+        //character.move(0, 1);
+        player->move(0,1);
     }
 
     //SHOOT
@@ -104,7 +111,7 @@ void Game::render()
     //     // window.draw(bullet)
     // }
 
-    //window.draw(player);
+    window->draw(player->shape);
 
     window->display();
 }

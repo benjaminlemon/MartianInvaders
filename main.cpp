@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "player.h"
+#include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
 
