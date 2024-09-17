@@ -1,65 +1,40 @@
 //Project planning:
+B Game
+    1. startMenu
+    2. gameOverMenu
 
-//classes
-Game:
-<!---start()-->
-<!----RenderWindow-->
+Process Event():
+    1. N player.move()
+    2. B integrate player.move->processEvent()
+    3. N player.shoot()
+    4. B integrate player.shoot()->processEvent()
 
--run()
-
---processEvents()
-----keypress to move(a,w,s,d or arrowkeys)
-------update location
-
-----keypress to shoot(space)
-------update-create bullet
-
-----closed
-
---update()
-----location:PC, NPC, Bullets
-----health: PC, NPC
-----destroy: PC, NPC, Bullets
-----createNPC();
-
---render()
-----pc
-----npc
-----bullets
-
-
-<!--Character:-->
-
-
-Player:
-    private:
-        health, fireRate, dmg, speed, sprite/img, location, 
+Update()
+    1. B Enemy
+        a. .updatePosition()
+            aa. OOB
+        b. .collision(bullets vector)
+        c. .collision(player)
+        d. .updateHealth(&bullet);
+        e. .updateHealth(player);
     
-    public:
-        all getters
-        all setters
-\        shoot();
-    https://www.sfml-dev.org/tutorials/2.6/graphics-transform.php
-
-    built in function to move entities around;
-<!--        destroyed();-->
-        
-
-
-Enemy:
-    private: 
-        health, speed, sprite/img, location
-    public: 
-        getters/setters
-        updatelocation();
-        updateHealth();
-        destroyed-frame/health
-
-
-
-Bullet:
-    private:
-        location, velocity/speed, 
-    Public: 
-        damage();
-        updateLocation()
+    2. B Bullets
+        a. .updatePosition()
+            aa. OOB
+        b. .collision(enemy vector);
+        c. .destroy();
+    
+    3. N Player
+        a. .updatePosition();
+            aa. OOB
+        b. .collision(enemy vector);
+        c. .updateHealth()
+        d. .destroy()
+    
+    4. B Game
+        a .gameOver(&player);
+    
+B Render()
+    1. render bullets
+    2. render player
+    3. render enemies
