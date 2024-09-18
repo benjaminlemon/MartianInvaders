@@ -101,12 +101,10 @@ void Game::update()
     //update enemy collisions
     for(Enemy* enemy: enemies){
         enemy->collides(bullets);
+        enemy->collides(player);
     }
-    // enemies.erase(std::remove_if(enemies))
-    // for(Enemy* enemy: enemies){
-    //     enemy->updatePosition();
-    //     // enemy->updateHealth();
-    // }
+    
+    //erase(remove_if position>y || health <= 0);
 
     //update player
         //updateHealth();
