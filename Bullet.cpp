@@ -7,7 +7,11 @@ Bullet::Bullet(Player &player)
     speed = 10;
     shape = sf::RectangleShape(sf::Vector2f(5.f, 10.f));
     position = sf::Vector2f(player.getPosition());
+<<<<<<< Updated upstream
     markedForRemoval = false;
+=======
+    shape.setFillColor(sf::Color::Green);
+>>>>>>> Stashed changes
 }
 
 void Bullet::updatePosition(){

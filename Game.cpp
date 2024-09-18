@@ -83,6 +83,7 @@ void Game::processEvents()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         //character.shoot();
+        bullets.push_back(player->shoot());
     }
 
 }
