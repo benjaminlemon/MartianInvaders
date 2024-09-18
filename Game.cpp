@@ -58,25 +58,29 @@ void Game::processEvents()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)||sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         //character.move(-1, 0);
-        player->getSprite().move(-1,0);
+//        player->getSprite().move(-1,0);
+        player->move(window->getSize().x,-1,0);
         player->getSprite().setTextureRect(sf::IntRect(31,0,30,32));
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)||sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         //character.move(1, 0);
-        player->getSprite().move(1,0);
+//        player->getSprite().move(1,0);
+        player->move(window->getSize().x,1,0);
         player->getSprite().setTextureRect(sf::IntRect(92,0,29,32));
         
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)||sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         //character.move(0, -1);
-        player->getSprite().move(0,-1);
+//        player->getSprite().move(0,-1);
+        player->move(window->getSize().y,0,-1);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)||sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         //character.move(0, 1);
-        player->getSprite().move(0,1);
+//        player->getSprite().move(0,1);
+        player->move(window->getSize().y,0,1);
     }
 
     //SHOOT

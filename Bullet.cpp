@@ -8,6 +8,7 @@ Bullet::Bullet(Player &player)
     shape = sf::RectangleShape(sf::Vector2f(5.f, 10.f));
     position = sf::Vector2f(player.getPosition());
     markedForRemoval = false;
+
 }
 
 void Bullet::updatePosition(){

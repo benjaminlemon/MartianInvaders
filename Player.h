@@ -22,7 +22,7 @@ class Player{
         sf::Sprite sprite;
         sf::CircleShape shape;
         Player();
-        void move(float x, float y);
+        void move(float boundary, float x, float y);
         Bullet* shoot();
         void updateHealth();
         void destroy();

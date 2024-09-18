@@ -12,20 +12,22 @@ Player::Player(){
     sprite.setPosition(position);
 }
 
-void Player::move(float x, float y){
-
+void Player::move(float boundary, float x, float y){
+    std::cout << this->getSprite().getTexture()->getSize().x <<std::endl;
+    float xSize = this->getSprite().getTexture()->getSize().x / 2.7;
+    float ySize = this->getSprite().getTexture()->getSize().y;
     //right x limit 697
     //left x limit 1
     //y top limit 4
     //y bottom limit 499
-    if(this->getSprite().getPosition().x > 697){
-        this->getSprite().setPosition(sf::Vector2f(697.f,this->getSprite().getPosition().y));
-    } else if(this->getSprite().getPosition().x < 1){
-        this->getSprite().setPosition(sf::Vector2f(1.f, this->getSprite().getPosition().y));
-    } else if(this->getSprite().getPosition().y > 499){
-        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 499.f));
-    } else if(this->getSprite().getPosition().y < 4){
-        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 4.f));
+    if(this->getSprite().getPosition().x > boundary - xSize){
+        this->getSprite().setPosition(sf::Vector2f(boundary-xSize,this->getSprite().getPosition().y));
+    } else if(this->getSprite().getPosition().x < 0){
+        this->getSprite().setPosition(sf::Vector2f(0.f, this->getSprite().getPosition().y));
+    } else if(this->getSprite().getPosition().y > boundary-(ySize*2)){
+        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, boundary-(ySize*2)));
+    } else if(this->getSprite().getPosition().y < 0){
+        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 0));
     }
     else{
         this->getSprite().move(x,y);
@@ -39,12 +41,14 @@ Bullet* Player::shoot(){
 }
 
 void Player::updateHealth(){
-    health -= 100;
+    health -= 50;
     this->destroy();
 }
 
 void Player::destroy(){
-    shape.setPosition(sf::Vector2f(1000.f,1000.f));
+    float xSize = this->getSprite().getTexture()->getSize().x;
+    float ySize = this->getSprite().getTexture()->getSize().y;
+    this->getSprite().setPosition(sf::Vector2f(xSize+200,ySize-200));
 }
 
 void Player::collides(std::vector<Enemy*> enemies){
