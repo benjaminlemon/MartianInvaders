@@ -16,7 +16,10 @@ class Game;
 
 class Enemy{
     private:
-        int health, speed;
+        int health;
+        float speed;
+        float width;
+        float height;
         sf::Vector2f position;
         std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
         sf::Sprite sprite;
@@ -25,14 +28,12 @@ class Enemy{
         void initializeSprite();
 
     public:
-        sf::RectangleShape shape;
-
         //Constructors
-        Enemy();
-        Enemy(int health, int speed, sf::Vector2f position, sf::RectangleShape shape);
+        Enemy(float windowSizeX);
+        Enemy(int health, int speed, sf::Vector2f position, std::string texturePath);
         
         //setters
-        void updatePosition();
+        void updatePosition(float dt);
         void updateHealth(Bullet* bullet);
         void updateHealth(Player* player);
         void destroy();
@@ -43,7 +44,7 @@ class Enemy{
         sf::RectangleShape getShape()const;
         sf::Vector2f getPosition() const;
         int getHealth(){return health;};
-        sf::Sprite getSprite(){return sprite;};
+        sf::Sprite& getSprite(){return sprite;};
 };
 
 #endif

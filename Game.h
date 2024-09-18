@@ -22,6 +22,7 @@ class Game{
         std::vector<Enemy*> enemies;
         Player* player;
         sf::Clock gameClock;
+        sf::Clock enemySeedClock;
         sf::RenderWindow* window = nullptr;
         sf::Event event;
 
@@ -33,6 +34,7 @@ class Game{
         void render();
     
     public:
+        float dt = 0;
         //constructor
         Game();
         void run();

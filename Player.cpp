@@ -18,12 +18,12 @@ void Player::move(float x, float y){
     //left x limit 1
     //y top limit 4
     //y bottom limit 499
-    if(this->getSprite().getPosition().x > 697){
-        this->getSprite().setPosition(sf::Vector2f(697.f,this->getSprite().getPosition().y));
+    if(sprite.getPosition().x > 697){
+        this->sprite.setPosition(sf::Vector2f(697.f,this->getSprite().getPosition().y));
     } else if(this->getSprite().getPosition().x < 1){
         this->getSprite().setPosition(sf::Vector2f(1.f, this->getSprite().getPosition().y));
-    } else if(this->getSprite().getPosition().y > 499){
-        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 499.f));
+    } else if(sprite.getPosition().y > 499){
+        sprite.setPosition(sf::Vector2f(sprite.getPosition().x, 499.f));
     } else if(this->getSprite().getPosition().y < 4){
         this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 4.f));
     }
@@ -33,10 +33,10 @@ void Player::move(float x, float y){
     
 }
 
-Bullet* Player::shoot(){
-    Bullet* bullet = new Bullet(*this);
-    return bullet;
-}
+// Bullet* Player::shoot(){
+//     Bullet* bullet = new Bullet(*this);
+//     return bullet;
+// }
 
 void Player::updateHealth(){
     health -= 100;

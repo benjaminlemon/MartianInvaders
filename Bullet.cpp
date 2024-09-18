@@ -17,7 +17,7 @@ void Bullet::updatePosition(){
 void Bullet::collides(const std::vector<Enemy *> &enemies) 
 {
     for(Enemy* enemy: enemies){
-        if(this->shape.getGlobalBounds().intersects(enemy->getShape().getGlobalBounds())){
+        if(this->shape.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds())){
             markedForRemoval = true;
             //change sprite to lil explosion?
         }

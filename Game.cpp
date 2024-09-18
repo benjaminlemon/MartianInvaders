@@ -15,7 +15,7 @@ void Game::initialize()
 
 void Game::createEnemies()
 {
-    Enemy* enemy = new Enemy();
+    Enemy* enemy = new Enemy(window->getSize().x);
     enemies.push_back(enemy);
 }
 
@@ -91,17 +91,16 @@ void Game::processEvents()
 void Game::update()
 {
     //create new enemies
-    // sf::Time time = gameClock.getElapsedTime();
-    float timeElapsed = gameClock.getElapsedTime().asSeconds();
+    float timeElapsed = enemySeedClock.getElapsedTime().asSeconds();
     if(timeElapsed >=1.f){
         createEnemies();
-        gameClock.restart();
+        enemySeedClock.restart();
     };
 
     //update Enemy Position
     for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end();){
         Enemy* enemy = *it;
-        enemy->updatePosition();
+        enemy->updatePosition(dt);
         if(enemy->getPosition().y > window->getSize().y){
             enemy->destroy();
             enemies.erase(it);
@@ -168,6 +167,8 @@ Game::Game()
 void Game::run()
 {
     while(window->isOpen()){
+        dt = gameClock.getElapsedTime().asSeconds();
+        gameClock.restart();
         processEvents();
         update();
         render();

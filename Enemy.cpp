@@ -3,26 +3,30 @@
 #include "Player.h"
 #include "Game.h"
 
-Enemy::Enemy()
+Enemy::Enemy(float windowSizeX)
 {
     health = 1;
-    speed = 2;
-    position = sf::Vector2f((float)(rand()%751), 0.f);
-    // shape = sf::RectangleShape(sf::Vector2f(50.f, 50.f));
-    // shape.setFillColor(sf::Color::Red);
-    sprite.setPosition(position);
+    speed = 50;
+    
     initializeTexture("./textures/Ship1.png");
     initializeSprite();
-}
 
-Enemy::Enemy(int health, int speed, sf::Vector2f position, sf::RectangleShape shape)
-{
-}
+    width = getSprite().getTexture()->getSize().x;
 
-void Enemy::updatePosition()
-{
-    position+=sf::Vector2f(0,(float)speed);
+    position = sf::Vector2f((float)((rand()%(int)(windowSizeX-width)) + (int)width), 0.f);
     sprite.setPosition(position);
+
+}
+
+Enemy::Enemy(int health, int speed, sf::Vector2f position, std::string texturePath)
+{
+}
+
+void Enemy::updatePosition(float dt)
+{
+    // position+=sf::Vector2f(0,(float)speed * dt);
+    // sprite.setPosition(position);
+    sprite.move(0.f, speed*dt);
 
     //update to include OOB?
 }
@@ -35,11 +39,6 @@ void Enemy::destroy()
 sf::Vector2f Enemy::getPosition() const
 {
     return this->position;
-}
-
-sf::RectangleShape Enemy::getShape() const
-{
-    return shape;
 }
 
 void Enemy::initializeTexture(std::string texturePath)
@@ -72,7 +71,7 @@ void Enemy::collides(std::vector<Bullet *> bullets)
     for(auto it = bullets.begin(); it != bullets.end();it++){
         Bullet* bullet = *it;
 
-        if(this->shape.getGlobalBounds().intersects(bullet->getShape().getGlobalBounds())){
+        if(this->getSprite().getGlobalBounds().intersects(bullet->getShape().getGlobalBounds())){
             this->updateHealth(bullet);
         }
     }
@@ -80,8 +79,10 @@ void Enemy::collides(std::vector<Bullet *> bullets)
 
 void Enemy::collides(Player* &player, sf::RenderWindow* window)
 {
-    if(this->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds())){
+    if(this->getSprite().getGlobalBounds().intersects(player->sprite.getGlobalBounds())){
     this->updateHealth(player);
-    this->position = sf::Vector2f(position.x, window->getSize().y);
+    this->getSprite().setPosition(sf::Vector2f(position.x, window->getSize().y + this->getSprite().getTexture()->getSize().y));
+    std::cout << this->getSprite().getPosition().y << std::endl;
     };
+
 }
