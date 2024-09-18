@@ -3,7 +3,13 @@
 
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <vector>
+#include <stdlib.h>
+#include "Enemy.h"
+#include "Game.h"
 
+class Enemy;
 class Player{
     private:
         int health;
@@ -17,6 +23,8 @@ class Player{
         void updateHealth();
         void destroy();
         sf::Vector2f getPosition(){return position;};
+        void collides(std::vector<Enemy*> enemies);
+
 
 };
 

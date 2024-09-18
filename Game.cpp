@@ -113,6 +113,7 @@ void Game::update()
     //update player
         //updateHealth();
             //if needed calls destroy();
+    player->collides(enemies);
 }
 
 void Game::render()

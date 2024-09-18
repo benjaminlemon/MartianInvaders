@@ -1,4 +1,6 @@
 #include "Enemy.h"
+#include "Bullet.h"
+#include "Player.h"
 
 Enemy::Enemy()
 {

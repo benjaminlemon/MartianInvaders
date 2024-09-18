@@ -7,6 +7,7 @@
 #include <vector>
 #include "Bullet.h"
 #include "Player.h"
+class Player;
 class Bullet;
 
 class Enemy{

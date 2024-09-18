@@ -6,6 +6,7 @@
 
 class Enemy;
 
+class Player;
 class Bullet{
     private:
         int dmg;

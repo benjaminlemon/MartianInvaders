@@ -1,5 +1,6 @@
 #include "Player.h"
 
+
 Player::Player(){
     health = 100;
     position = sf::Vector2f(400.f,500.f);
@@ -34,11 +35,19 @@ void Player::shoot(){
 }
 
 void Player::updateHealth(){
-    
+    health -= 100;
+    this->destroy();
 }
 
 void Player::destroy(){
-    
+    delete this;
 }
 
-
+void Player::collides(std::vector<Enemy*> enemies){
+    for(auto it=enemies.begin(); it != enemies.end(); it++){
+        Enemy* enemy = *it;
+        if(this->shape.getGlobalBounds().intersects(enemy->shape.getGlobalBounds())){
+            this->updateHealth();
+        }
+    }
+}
