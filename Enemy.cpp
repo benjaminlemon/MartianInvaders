@@ -19,6 +19,8 @@ void Enemy::updatePosition()
 {
     position+=sf::Vector2f(0,(float)speed);
     shape.setPosition(position);
+
+    //update to include OOB?
 }
 
 void Enemy::destroy()
@@ -57,7 +59,7 @@ void Enemy::collides(std::vector<Bullet *> bullets)
     }
 }
 
-void Enemy::collides(Player *player)
+void Enemy::collides(Player* &player)
 {
     if(this->shape.getGlobalBounds().intersects(player->shape.getGlobalBounds())){
     this->updateHealth(player);

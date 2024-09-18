@@ -103,6 +103,10 @@ void Game::update()
         enemy->collides(bullets);
         enemy->collides(player);
     }
+
+    for(Bullet* bullet: bullets){
+        bullet->collides(enemies);
+    }
     
     //erase(remove_if position>y || health <= 0);
 

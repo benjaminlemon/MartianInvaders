@@ -4,7 +4,10 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
+#include <vector>
 #include "Bullet.h"
+#include "Player.h"
+class Bullet;
 
 class Enemy{
     private:
@@ -24,7 +27,7 @@ class Enemy{
         void updateHealth(Player* player);
         void destroy();
         void collides(std::vector<Bullet*> bullets);
-        void collides(Player* player);
+        void collides(Player* &player);
 
         //getters
         sf::RectangleShape getShape()const;

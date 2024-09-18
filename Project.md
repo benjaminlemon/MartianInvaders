@@ -11,19 +11,19 @@ Process Event():
 
 Update()
     1. B Enemy
-        a. .updatePosition()
+        ~a. .updatePosition()
             aa. OOB
-        b. .collision(bullets vector)
-        c. .collision(player)
-        d. .updateHealth(&bullet);
-        e. .updateHealth(player);
+        ~b. .collision(bullets vector)
+        ~c. .collision(player)
+        ~d. .updateHealth(&bullet);
+        ~e. .updateHealth(player);
     
     2. B Bullets
-        a. .updatePosition()
+        ~a. .updatePosition()
             aa. OOB
-        b. .collision(enemy vector);
-        c. .destroy();
-        d. bullet();
+        ~b. .collision(enemy vector);
+        ~c. .destroy();
+        ~d. bullet();
     
     3. N Player
         a. .updatePosition();
