@@ -86,8 +86,8 @@ void Game::processEvents()
     //SHOOT
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        //character.shoot();
-        // bullets.push_back(player->shoot());
+        Bullet* bullet = new Bullet(player->getPosition());
+        bullets.push_back(bullet);
     }
 
 }
@@ -135,6 +135,7 @@ void Game::update()
     }
 
     for(Bullet* bullet: bullets){
+        
         bullet->collides(enemies);
     }
     
@@ -155,10 +156,11 @@ void Game::render()
         window->draw(enemy->getSprite());
     }
 
-    // for(bullet bullet: bullets){
-    //     // window.draw(bullet)
-    // }
-
+     for(Bullet* bullet: bullets){
+         
+         window->draw(bullet->getShape());
+     }
+    
     window->draw(player->getSprite());
 
     window->display();

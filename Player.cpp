@@ -10,17 +10,18 @@ Player::Player(){
     initializeTexture();
     initializeSprite();
     sprite.setPosition(position);
+    isPlayerDead = false;
 }
 
 void Player::move(float boundary, float x, float y){
-    std::cout << this->getSprite().getTexture()->getSize().x <<std::endl;
+
     float xSize = this->getSprite().getTexture()->getSize().x / 2.7;
     float ySize = this->getSprite().getTexture()->getSize().y;
-    //right x limit 697
-    //left x limit 1
-    //y top limit 4
-    //y bottom limit 499
-    if(this->getSprite().getPosition().x > boundary - xSize){
+
+    if(isPlayerDead){
+        this->getSprite().move(0,0);
+    }
+    else if(this->getSprite().getPosition().x > boundary - xSize){
         this->getSprite().setPosition(sf::Vector2f(boundary-xSize,this->getSprite().getPosition().y));
     } else if(this->getSprite().getPosition().x < 0){
         this->getSprite().setPosition(sf::Vector2f(0.f, this->getSprite().getPosition().y));
@@ -35,10 +36,10 @@ void Player::move(float boundary, float x, float y){
     
 }
 
-Bullet* Player::shoot(){
-    Bullet* bullet = new Bullet(*this);
-    return bullet;
-}
+//Bullet* Player::shoot(){
+//    Bullet* bullet = new Bullet(*this);
+//    return bullet;
+//}
 
 void Player::updateHealth(){
     health -= 50;
@@ -49,6 +50,7 @@ void Player::destroy(){
     float xSize = this->getSprite().getTexture()->getSize().x;
     float ySize = this->getSprite().getTexture()->getSize().y;
     this->getSprite().setPosition(sf::Vector2f(xSize+200,ySize-200));
+    this->isPlayerDead = true;
 }
 
 void Player::collides(std::vector<Enemy*> enemies){

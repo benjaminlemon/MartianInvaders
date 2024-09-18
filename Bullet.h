@@ -16,7 +16,8 @@ class Bullet{
         bool markedForRemoval;
 
     public:
-        Bullet(Player &player);
+//        Bullet(Player &player);
+        Bullet(sf::Vector2f playerPosition);
         int getDmg(){return dmg;};
         void updatePosition();
         sf::Vector2f getPosition(){return position;};
