@@ -8,8 +8,10 @@
 #include <stdlib.h>
 #include "Enemy.h"
 #include "Game.h"
+#include "Bullet.h"
 
 class Enemy;
+class Bullet;
 class Player{
     private:
         int health;
@@ -19,10 +21,10 @@ class Player{
         sf::CircleShape shape;
         Player();
         void move(float x, float y);
-        void shoot();
+        Bullet* shoot();
         void updateHealth();
         void destroy();
-        sf::Vector2f getPosition(){return position;};
+        sf::Vector2f getPosition(){return shape.getPosition();};
         void collides(std::vector<Enemy*> enemies);
 
 

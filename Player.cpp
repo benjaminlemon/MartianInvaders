@@ -30,8 +30,9 @@ void Player::move(float x, float y){
     
 }
 
-void Player::shoot(){
-    
+Bullet* Player::shoot(){
+    Bullet* bullet = new Bullet(*this);
+    return bullet;
 }
 
 void Player::updateHealth(){
@@ -40,7 +41,7 @@ void Player::updateHealth(){
 }
 
 void Player::destroy(){
-    delete this;
+    shape.setPosition(sf::Vector2f(1000.f,1000.f));
 }
 
 void Player::collides(std::vector<Enemy*> enemies){
