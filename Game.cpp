@@ -29,12 +29,12 @@ void Game::processEvents()
 
             case sf::Event::KeyPressed:
                 if(event.key.scancode == sf::Keyboard::Scan::A){
-                    std::cout << "Key A Pressed!" << std::endl;
+                    // std::cout << "Key A Pressed!" << std::endl;
                     player->sprite.setTextureRect(sf::IntRect(31,0,30,32));
-                    std::cout << player->getSprite().getTextureRect().left << std::endl;
-                    std::cout << player->getSprite().getTextureRect().top << std::endl;
-                    std::cout << player->getSprite().getTextureRect().width << std::endl;
-                    std::cout << player->getSprite().getTextureRect().height << std::endl;
+                    // std::cout << player->getSprite().getTextureRect().left << std::endl;
+                    // std::cout << player->getSprite().getTextureRect().top << std::endl;
+                    // std::cout << player->getSprite().getTextureRect().width << std::endl;
+                    // std::cout << player->getSprite().getTextureRect().height << std::endl;
                 }
                 else if(event.key.code == sf::Keyboard::D){
                     player->getSprite().setTextureRect(sf::IntRect(92,0,29,32));
@@ -42,7 +42,7 @@ void Game::processEvents()
             
             case sf::Event::KeyReleased:
                 if(event.key.code == sf::Keyboard::A){
-                    std::cout << "Key A Released" << std::endl;
+                    // std::cout << "Key A Released" << std::endl;
                     player->getSprite().setTextureRect(sf::IntRect(59,0,30,32));
                 }
                 else if(event.key.code == sf::Keyboard::D){
@@ -83,7 +83,7 @@ void Game::processEvents()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         //character.shoot();
-        bullets.push_back(player->shoot());
+        // bullets.push_back(player->shoot());
     }
 
 }
@@ -127,7 +127,7 @@ void Game::update()
     //update enemy collisions
     for(Enemy* enemy: enemies){
         enemy->collides(bullets);
-        enemy->collides(player);
+        enemy->collides(player, window);
     }
 
     for(Bullet* bullet: bullets){

@@ -1,14 +1,10 @@
 #ifndef BULLET_H
 #define BULLET_H
 #include <SFML/Graphics.hpp>
-<<<<<<< Updated upstream
 #include "Player.h"
 #include "Enemy.h"
 
 class Enemy;
-=======
-#include <iostream>
->>>>>>> Stashed changes
 
 class Player;
 class Bullet{

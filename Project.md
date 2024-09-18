@@ -4,7 +4,8 @@ B Game
     2. gameOverMenu
 
 Process Event():
-    ~1. N player.move()
+    1. N player.move()
+        a. change sprites texture
     ~2. B integrate player.move->processEvent()
     3. N player.shoot()
     4. B integrate player.shoot()->processEvent()
@@ -14,9 +15,9 @@ Update()
         ~a. .updatePosition()
             aa. OOB
         ~b. .collision(bullets vector)
-        ~c. .collision(player)
+        c. .collision(player)
         ~d. .updateHealth(&bullet);
-        ~e. .updateHealth(player);
+        e. .updateHealth(player);
     
     2. B Bullets
         ~a. .updatePosition()

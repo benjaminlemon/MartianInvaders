@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "Player.h"
+#include "Game.h"
 
 Enemy::Enemy()
 {
@@ -43,16 +44,16 @@ sf::RectangleShape Enemy::getShape() const
 
 void Enemy::initializeTexture(std::string texturePath)
 {
-    if(!texture.loadFromFile(texturePath)){
+    if(!texture->loadFromFile(texturePath)){
         std::cerr << "Texture did not load" << std::endl;
     }
 
-    texture.setSmooth(false);
+    texture->setSmooth(false);
 }
 
 void Enemy::initializeSprite()
 {
-    sprite.setTexture(texture);
+    sprite.setTexture(*texture);
     sprite.rotate(180.f);
 }
 
@@ -77,9 +78,10 @@ void Enemy::collides(std::vector<Bullet *> bullets)
     }
 }
 
-void Enemy::collides(Player* &player)
+void Enemy::collides(Player* &player, sf::RenderWindow* window)
 {
-    if(this->shape.getGlobalBounds().intersects(player->shape.getGlobalBounds())){
+    if(this->sprite.getGlobalBounds().intersects(player->sprite.getGlobalBounds())){
     this->updateHealth(player);
-    }
+    this->position = sf::Vector2f(position.x, window->getSize().y);
+    };
 }

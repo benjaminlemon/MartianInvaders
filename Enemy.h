@@ -8,14 +8,17 @@
 #include <iostream>
 #include "Bullet.h"
 #include "Player.h"
+#include "Game.h"
+
 class Player;
 class Bullet;
+class Game;
 
 class Enemy{
     private:
         int health, speed;
         sf::Vector2f position;
-        sf::Texture texture;
+        std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
         sf::Sprite sprite;
 
         void initializeTexture(std::string texturePath);
@@ -34,7 +37,7 @@ class Enemy{
         void updateHealth(Player* player);
         void destroy();
         void collides(std::vector<Bullet*> bullets);
-        void collides(Player* &player);
+        void collides(Player* &player, sf::RenderWindow* window);
 
         //getters
         sf::RectangleShape getShape()const;
