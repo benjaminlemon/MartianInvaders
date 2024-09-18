@@ -4,8 +4,8 @@ B Game
     2. gameOverMenu
 
 Process Event():
-    1. N player.move()
-    2. B integrate player.move->processEvent()
+    ~1. N player.move()
+    ~2. B integrate player.move->processEvent()
     3. N player.shoot()
     4. B integrate player.shoot()->processEvent()
 

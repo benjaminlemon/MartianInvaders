@@ -121,7 +121,7 @@ void Game::render()
 
     //Render
     for(Enemy* enemy: enemies){
-        window->draw(enemy->shape);
+        window->draw(enemy->getSprite());
     }
 
     // for(bullet bullet: bullets){

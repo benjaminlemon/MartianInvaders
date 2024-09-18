@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 #include <vector>
+#include <iostream>
 #include "Bullet.h"
 #include "Player.h"
 class Player;
@@ -14,6 +15,11 @@ class Enemy{
     private:
         int health, speed;
         sf::Vector2f position;
+        sf::Texture texture;
+        sf::Sprite sprite;
+
+        void initializeTexture(std::string texturePath);
+        void initializeSprite();
 
     public:
         sf::RectangleShape shape;
@@ -34,6 +40,7 @@ class Enemy{
         sf::RectangleShape getShape()const;
         sf::Vector2f getPosition() const;
         int getHealth(){return health;};
+        sf::Sprite getSprite(){return sprite;};
 };
 
 #endif

@@ -11,8 +11,10 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "Player.h"
+
 class Player;
 class Bullet;
+class Enemy;
 
 class Game{
     private:
