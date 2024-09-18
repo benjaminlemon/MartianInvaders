@@ -1,7 +1,10 @@
 #ifndef BULLET_H
 #define BULLET_H
-#include "Player.h"
 #include <SFML/Graphics.hpp>
+#include "Player.h"
+#include "Enemy.h"
+
+class Enemy;
 
 class Bullet{
     private:
@@ -9,14 +12,16 @@ class Bullet{
         int speed;
         sf::RectangleShape shape;
         sf::Vector2f position;
+        bool markedForRemoval;
 
     public:
         Bullet(Player &player);
         int getDmg(){return dmg;};
-        void updatePosition(){};
+        void updatePosition();
         sf::Vector2f getPosition(){return position;};
         sf::RectangleShape getShape(){return shape;};
-        void destroy(){};
+        void collides(const std::vector<Enemy*> &enemies);
+        void destroy();
 };
 
 #endif
