@@ -9,8 +9,24 @@ Player::Player(){
 }
 
 void Player::move(float x, float y){
+
+    //right x limit 697
+    //left x limit 1
+    //y top limit 4
+    //y bottom limit 499
+    if(shape.getPosition().x > 697){
+        shape.setPosition(sf::Vector2f(697.f,shape.getPosition().y));
+    } else if(shape.getPosition().x < 1){
+        shape.setPosition(sf::Vector2f(1.f, shape.getPosition().y));
+    } else if(shape.getPosition().y > 499){
+        shape.setPosition(sf::Vector2f(shape.getPosition().x, 499.f));
+    } else if(shape.getPosition().y < 4){
+        shape.setPosition(sf::Vector2f(shape.getPosition().x, 4.f));
+    }
+    else{
+        shape.move(x,y);
+    }
     
-    shape.move(x,y);
 }
 
 void Player::shoot(){
