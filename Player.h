@@ -9,7 +9,7 @@
 #include "Enemy.h"
 #include "Game.h"
 
-
+class Enemy;
 class Player{
     private:
         int health;

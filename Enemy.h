@@ -4,7 +4,9 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
-#include "Bullet.h"
+
+class Player;
+class Bullet;
 
 class Enemy{
     private:

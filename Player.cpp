@@ -44,7 +44,7 @@ void Player::destroy(){
 }
 
 void Player::collides(std::vector<Enemy*> enemies){
-    for(auto it=enemies.begin(); it != enemies.end(); i++){
+    for(auto it=enemies.begin(); it != enemies.end(); it++){
         Enemy* enemy = *it;
         if(this->shape.getGlobalBounds().intersects(enemy->shape.getGlobalBounds())){
             this->updateHealth();

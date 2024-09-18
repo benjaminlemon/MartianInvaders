@@ -1,8 +1,8 @@
 #ifndef BULLET_H
 #define BULLET_H
-#include "Player.h"
 #include <SFML/Graphics.hpp>
 
+class Player;
 class Bullet{
     private:
         int dmg;
