@@ -4,9 +4,12 @@
 Player::Player(){
     health = 100;
     position = sf::Vector2f(400.f,500.f);
-    shape = sf::CircleShape(50.f);
-    shape.setFillColor(sf::Color::Blue);
-    shape.setPosition(position);
+    // this->getSprite() = sf::Circlethis->getSprite()(50.f);
+    // this->getSprite().setFillColor(sf::Color::Blue);
+    // this->getSprite().setPosition(position);
+    initializeTexture();
+    initializeSprite();
+    sprite.setPosition(position);
 }
 
 void Player::move(float x, float y){
@@ -15,17 +18,17 @@ void Player::move(float x, float y){
     //left x limit 1
     //y top limit 4
     //y bottom limit 499
-    if(shape.getPosition().x > 697){
-        shape.setPosition(sf::Vector2f(697.f,shape.getPosition().y));
-    } else if(shape.getPosition().x < 1){
-        shape.setPosition(sf::Vector2f(1.f, shape.getPosition().y));
-    } else if(shape.getPosition().y > 499){
-        shape.setPosition(sf::Vector2f(shape.getPosition().x, 499.f));
-    } else if(shape.getPosition().y < 4){
-        shape.setPosition(sf::Vector2f(shape.getPosition().x, 4.f));
+    if(this->getSprite().getPosition().x > 697){
+        this->getSprite().setPosition(sf::Vector2f(697.f,this->getSprite().getPosition().y));
+    } else if(this->getSprite().getPosition().x < 1){
+        this->getSprite().setPosition(sf::Vector2f(1.f, this->getSprite().getPosition().y));
+    } else if(this->getSprite().getPosition().y > 499){
+        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 499.f));
+    } else if(this->getSprite().getPosition().y < 4){
+        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 4.f));
     }
     else{
-        shape.move(x,y);
+        this->getSprite().move(x,y);
     }
     
 }
@@ -46,8 +49,25 @@ void Player::destroy(){
 void Player::collides(std::vector<Enemy*> enemies){
     for(auto it=enemies.begin(); it != enemies.end(); it++){
         Enemy* enemy = *it;
-        if(this->shape.getGlobalBounds().intersects(enemy->shape.getGlobalBounds())){
+        if(this->getSprite().getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds())){
             this->updateHealth();
         }
     }
+}
+
+void Player::initializeTexture()
+{
+    if(!texture.loadFromFile("./textures/combatjet-32x32.png")){
+        std::cerr << "Could not load player texture!" << std::endl;
+    };
+    texture.setSmooth(false);
+}
+
+void Player::initializeSprite()
+{
+    sprite.setTexture(texture);
+
+    sprite.setTextureRect(sf::IntRect(59,0,30,32));
+
+    sprite.scale(2.f, 2.f);
 }

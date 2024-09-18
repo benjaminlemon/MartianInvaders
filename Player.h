@@ -14,8 +14,10 @@ class Player{
     private:
         int health;
         sf::Vector2f position;
+        sf::Texture texture;
         
     public:
+        sf::Sprite sprite;
         sf::CircleShape shape;
         Player();
         void move(float x, float y);
@@ -24,7 +26,9 @@ class Player{
         void destroy();
         sf::Vector2f getPosition(){return position;};
         void collides(std::vector<Enemy*> enemies);
-
+        void initializeTexture();
+        void initializeSprite();
+        sf::Sprite& getSprite(){return sprite;};
 
 };
 
