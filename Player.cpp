@@ -13,20 +13,21 @@ Player::Player(){
     isPlayerDead = false;
 }
 
-void Player::move(float boundary, float x, float y){
+void Player::move(float xBoundary, float yBoundary, float x, float y){
 
     float xSize = this->getSprite().getTexture()->getSize().x / 2.7;
     float ySize = this->getSprite().getTexture()->getSize().y;
-
+    
     if(isPlayerDead){
         this->getSprite().move(0,0);
     }
-    else if(this->getSprite().getPosition().x > boundary - xSize){
-        this->getSprite().setPosition(sf::Vector2f(boundary-xSize,this->getSprite().getPosition().y));
+    else if(this->getSprite().getPosition().x > xBoundary - xSize){
+        this->getSprite().setPosition(sf::Vector2f(xBoundary - xSize,this->getSprite().getPosition().y));
+
     } else if(this->getSprite().getPosition().x < 0){
         this->getSprite().setPosition(sf::Vector2f(0.f, this->getSprite().getPosition().y));
-    } else if(this->getSprite().getPosition().y > boundary-(ySize*2)){
-        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, boundary-(ySize*2)));
+    } else if(this->getSprite().getPosition().y > yBoundary-(ySize*2)){
+        this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, yBoundary-(ySize*2)));
     } else if(this->getSprite().getPosition().y < 0){
         this->getSprite().setPosition(sf::Vector2f(this->getSprite().getPosition().x, 0));
     }
