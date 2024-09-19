@@ -13,7 +13,7 @@ class Bullet{
         int speed;
         sf::RectangleShape shape;
         sf::Vector2f position;
-        bool markedForRemoval;
+        bool markedToDestroy;
 
     public:
 //        Bullet(Player &player);

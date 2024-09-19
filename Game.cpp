@@ -6,6 +6,10 @@ void Game::initialize()
     //frame rate == monitor refresh to prevent tearing
     window->setVerticalSyncEnabled(true);
     // window->setKeyRepeatEnabled(false);
+
+    WINDOW_WIDTH = window->getSize().x;
+    WINDOW_HEIGHT = window->getSize().y;
+
     
     //create player
     player = new Player();
@@ -102,16 +106,9 @@ void Game::update()
     };
 
     //update Enemy Position
-    for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end();){
+    for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end();it++){
         Enemy* enemy = *it;
-        enemy->updatePosition(dt);
-        if(enemy->getPosition().y > window->getSize().y){
-            enemy->destroy();
-            enemies.erase(it);
-        }
-        else{
-            it++;
-        }
+        enemy->updatePosition(dt, WINDOW_HEIGHT);
     }
 
     // update bullet position
@@ -129,20 +126,43 @@ void Game::update()
 
     //update enemy collisions
     for(Enemy* enemy: enemies){
-        enemy->collides(bullets);
+        enemy->collides(bullets, window);
         enemy->collides(player, window);
     }
 
+    //clean up all dead enemies
+    auto deadEnemyIteratorBegin = std::remove_if(enemies.begin(), enemies.end(),
+     [](Enemy* enemy){
+        return enemy->markedToDestroy;
+     });
+
+    for(Enemy* enemy: enemies){
+        if(enemy->markedToDestroy){
+            enemy->destroy();
+        }
+    }
+
+    enemies.erase(deadEnemyIteratorBegin, enemies.end());
+
+    //update bullet collisions
     for(Bullet* bullet: bullets){
-        
         bullet->collides(enemies);
     }
-    
-    //erase(remove_if position>y || health <= 0);
 
-    //update player
-        //updateHealth();
-            //if needed calls destroy();
+    //clean up bullet objects
+    auto spentBulletIteratorBegin = std::remove_if(bullets.begin(), bullets.end(),
+     [](Bullet* bullet){
+        return bullet->markedToDestroy;
+     });
+
+    for(Enemy* enemy: enemies){
+        if(enemy->markedToDestroy){
+            enemy->destroy();
+        }
+    }
+
+    enemies.erase(deadEnemyIteratorBegin, enemies.end());
+    
     player->collides(enemies);
 }
 

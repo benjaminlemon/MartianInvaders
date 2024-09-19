@@ -28,16 +28,17 @@ class Enemy{
         void initializeSprite();
 
     public:
+        bool markedToDestroy = false;
         //Constructors
         Enemy(float windowSizeX);
         Enemy(int health, int speed, sf::Vector2f position, std::string texturePath);
         
         //setters
-        void updatePosition(float dt);
+        void updatePosition(float dt, float windowHeight);
         void updateHealth(Bullet* bullet);
         void updateHealth(Player* player);
         void destroy();
-        void collides(std::vector<Bullet*> bullets);
+        void collides(std::vector<Bullet*> bullets, sf::RenderWindow* window);
         void collides(Player* &player, sf::RenderWindow* window);
 
         //getters

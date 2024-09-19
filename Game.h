@@ -25,6 +25,9 @@ class Game{
         sf::Clock enemySeedClock;
         sf::RenderWindow* window = nullptr;
         sf::Event event;
+        float WINDOW_WIDTH;
+        float WINDOW_HEIGHT;
+
 
         //Functions
         void initialize();

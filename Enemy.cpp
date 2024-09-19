@@ -6,12 +6,13 @@
 Enemy::Enemy(float windowSizeX)
 {
     health = 1;
-    speed = 50;
+    speed = 100;
     
     initializeTexture("./textures/Ship1.png");
     initializeSprite();
 
     width = getSprite().getTexture()->getSize().x;
+    height = getSprite().getTexture()->getSize().y;
 
     position = sf::Vector2f((float)((rand()%(int)(windowSizeX-width)) + (int)width), 0.f);
     sprite.setPosition(position);
@@ -22,13 +23,13 @@ Enemy::Enemy(int health, int speed, sf::Vector2f position, std::string texturePa
 {
 }
 
-void Enemy::updatePosition(float dt)
+void Enemy::updatePosition(float dt, float windowHeight)
 {
-    // position+=sf::Vector2f(0,(float)speed * dt);
-    // sprite.setPosition(position);
     sprite.move(0.f, speed*dt);
 
-    //update to include OOB?
+    if(sprite.getPosition().y > windowHeight){
+            markedToDestroy = true;
+    }
 }
 
 void Enemy::destroy()
@@ -66,13 +67,16 @@ void Enemy::updateHealth(Player *player)
     this->health = 0;
 }
 
-void Enemy::collides(std::vector<Bullet *> bullets)
+void Enemy::collides(std::vector<Bullet *> bullets, sf::RenderWindow* window)
 {
     for(auto it = bullets.begin(); it != bullets.end();it++){
         Bullet* bullet = *it;
 
         if(this->getSprite().getGlobalBounds().intersects(bullet->getShape().getGlobalBounds())){
-            this->updateHealth(bullet);
+            
+            this->getSprite().setPosition(sf::Vector2f(position.x, window->getSize().y + this->getSprite().getTexture()->getSize().y));
+
+            markedToDestroy = true;
         }
     }
 }
@@ -80,9 +84,10 @@ void Enemy::collides(std::vector<Bullet *> bullets)
 void Enemy::collides(Player* &player, sf::RenderWindow* window)
 {
     if(this->getSprite().getGlobalBounds().intersects(player->sprite.getGlobalBounds())){
-    this->updateHealth(player);
-    this->getSprite().setPosition(sf::Vector2f(position.x, window->getSize().y + this->getSprite().getTexture()->getSize().y));
-    std::cout << this->getSprite().getPosition().y << std::endl;
-    };
+        this->updateHealth(player);
 
+        this->getSprite().setPosition(sf::Vector2f(position.x, window->getSize().y + this->getSprite().getTexture()->getSize().y));
+
+        markedToDestroy = true;
+    }
 }

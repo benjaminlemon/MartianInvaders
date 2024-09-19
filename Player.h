@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Game.h"
 
+class Bullet;
 class Enemy;
 class Player{
     private:
