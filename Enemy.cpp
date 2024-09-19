@@ -19,10 +19,6 @@ Enemy::Enemy(float windowSizeX)
 
 }
 
-Enemy::Enemy(int health, int speed, sf::Vector2f position, std::string texturePath)
-{
-}
-
 void Enemy::updatePosition(float dt, float windowHeight)
 {
     sprite.move(0.f, speed*dt);
@@ -56,7 +52,7 @@ void Enemy::initializeSprite()
     sprite.setTexture(*texture);
     sprite.rotate(180.f);
 }
-
+/* 
 void Enemy::updateHealth(Bullet *bullet)
 {
     health -= bullet->getDmg();
@@ -66,27 +62,23 @@ void Enemy::updateHealth(Player *player)
 {
     this->health = 0;
 }
-
-void Enemy::collides(std::vector<Bullet *> bullets, sf::RenderWindow* window)
+ */
+void Enemy::collides(std::vector<Bullet *> bullets)
 {
     for(auto it = bullets.begin(); it != bullets.end();it++){
         Bullet* bullet = *it;
 
-        if(this->getSprite().getGlobalBounds().intersects(bullet->getShape().getGlobalBounds())){
-            
-            this->getSprite().setPosition(sf::Vector2f(position.x, window->getSize().y + this->getSprite().getTexture()->getSize().y));
+        if(this->getSprite().getGlobalBounds().intersects(bullet->getSprite().getGlobalBounds())){
 
             markedToDestroy = true;
         }
     }
 }
 
-void Enemy::collides(Player* &player, sf::RenderWindow* window)
+void Enemy::collides(Player* &player)
 {
     if(this->getSprite().getGlobalBounds().intersects(player->sprite.getGlobalBounds())){
-        this->updateHealth(player);
-
-        this->getSprite().setPosition(sf::Vector2f(position.x, window->getSize().y + this->getSprite().getTexture()->getSize().y));
+        // this->updateHealth(player);
 
         markedToDestroy = true;
     }

@@ -23,6 +23,7 @@ class Game{
         Player* player;
         sf::Clock gameClock;
         sf::Clock enemySeedClock;
+        sf::Clock fireRate;
         sf::RenderWindow* window = nullptr;
         sf::Event event;
         float WINDOW_WIDTH;

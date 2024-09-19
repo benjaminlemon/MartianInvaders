@@ -1,29 +1,47 @@
 #include "Bullet.h"
 #include "Player.h"
 
+void Bullet::initializeTexture(std::string texturePath)
+{
+    if(!texture->loadFromFile(texturePath)){
+        std::cerr << "Bullet texture did not load" << std::endl;
+    }
+
+    texture->setSmooth(false);
+}
+
+void Bullet::initializeSprite()
+{
+    sprite.setTexture(*texture);
+    sprite.rotate(-90);
+    sprite.scale(1.f,.2f);
+}
+
 Bullet::Bullet(sf::Vector2f playerPosition)
 {
     dmg = 1;
-    speed = 10;
-    shape = sf::RectangleShape(sf::Vector2f(5.f, 10.f));
+    speed = 300;
+    initializeTexture("./textures/bullets.png");
+    initializeSprite();
     position = sf::Vector2f(playerPosition);
-    shape.setPosition(position);
-    markedToDestroy = false;
+    sprite.setPosition(position);
 
 }
 
-void Bullet::updatePosition(){
-    shape.setPosition(shape.getPosition().x, shape.getPosition().y - (float)speed);
+void Bullet::updatePosition(float dt){
+    sprite.move(0.f, -speed*dt);
+
+    if(sprite.getPosition().y < 0){
+        markedToDestroy = true;
+    }
 }
 
 void Bullet::collides(const std::vector<Enemy *> &enemies) 
 {
     for(Enemy* enemy: enemies){
-        if(this->shape.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds())){
+        if(this->getSprite().getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds())){
+            
             markedToDestroy = true;
-            //this wont work with bigger screens...
-            this->shape.setPosition(1000.f,1000.f);
-
         }
     }
 }

@@ -31,28 +31,6 @@ void Game::processEvents()
                 window->close();
                 break;
 
-            case sf::Event::KeyPressed:
-                if(event.key.scancode == sf::Keyboard::Scan::A){
-                    // std::cout << "Key A Pressed!" << std::endl;
-                    player->sprite.setTextureRect(sf::IntRect(31,0,30,32));
-                    // std::cout << player->getSprite().getTextureRect().left << std::endl;
-                    // std::cout << player->getSprite().getTextureRect().top << std::endl;
-                    // std::cout << player->getSprite().getTextureRect().width << std::endl;
-                    // std::cout << player->getSprite().getTextureRect().height << std::endl;
-                }
-                else if(event.key.code == sf::Keyboard::D){
-                    player->getSprite().setTextureRect(sf::IntRect(92,0,29,32));
-                };
-            
-            case sf::Event::KeyReleased:
-                if(event.key.code == sf::Keyboard::A){
-                    // std::cout << "Key A Released" << std::endl;
-                    player->getSprite().setTextureRect(sf::IntRect(59,0,30,32));
-                }
-                else if(event.key.code == sf::Keyboard::D){
-                    player->getSprite().setTextureRect(sf::IntRect(59,0,30,32));
-                };
-
             default:
                 break;
         }
@@ -61,37 +39,41 @@ void Game::processEvents()
     //smooth movement with keyboard
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)||sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        //character.move(-1, 0);
-//        player->getSprite().move(-1,0);
+
         player->move(window->getSize().x,-1,0);
         player->getSprite().setTextureRect(sf::IntRect(31,0,30,32));
     }
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)||sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        //character.move(1, 0);
-//        player->getSprite().move(1,0);
+
         player->move(window->getSize().x,1,0);
         player->getSprite().setTextureRect(sf::IntRect(92,0,29,32));
         
     }
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)||sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        //character.move(0, -1);
-//        player->getSprite().move(0,-1);
         player->move(window->getSize().y,0,-1);
     }
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)||sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        //character.move(0, 1);
-//        player->getSprite().move(0,1);
         player->move(window->getSize().y,0,1);
     }
 
     //SHOOT
+    float fireRateTime = fireRate.getElapsedTime().asSeconds();
+    
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        Bullet* bullet = new Bullet(player->getPosition());
-        bullets.push_back(bullet);
+        
+        if(fireRateTime >=.25f){
+            Bullet* bullet = new Bullet(player->getPosition());
+
+            bullets.push_back(bullet);
+            fireRate.restart();
+        }
     }
 
 }
@@ -106,30 +88,28 @@ void Game::update()
     };
 
     //update Enemy Position
-    for(std::vector<Enemy*>::iterator it= enemies.begin(); it != enemies.end();it++){
-        Enemy* enemy = *it;
+    for(Enemy* enemy:enemies){
         enemy->updatePosition(dt, WINDOW_HEIGHT);
     }
 
     // update bullet position
-     for(auto it = bullets.begin(); it !=bullets.end();){
-        Bullet* bullet = *it;
-        bullet->updatePosition();
-        if(bullet->getPosition().y > window->getSize().y){
-            bullet->destroy();
-            bullets.erase(it);
-        }
-        else{
-            it++;
-        }
+     for(Bullet* bullet:bullets){
+        bullet->updatePosition(dt);
     }
 
     //update enemy collisions
     for(Enemy* enemy: enemies){
-        enemy->collides(bullets, window);
-        enemy->collides(player, window);
+        enemy->collides(bullets);
+        enemy->collides(player);
     }
 
+    //update bullet collisions
+    for(Bullet* bullet: bullets){
+        bullet->collides(enemies);
+    }
+
+    player->collides(enemies);
+    
     //clean up all dead enemies
     auto deadEnemyIteratorBegin = std::remove_if(enemies.begin(), enemies.end(),
      [](Enemy* enemy){
@@ -144,26 +124,16 @@ void Game::update()
 
     enemies.erase(deadEnemyIteratorBegin, enemies.end());
 
-    //update bullet collisions
-    for(Bullet* bullet: bullets){
-        bullet->collides(enemies);
-    }
-
-    //clean up bullet objects
-    auto spentBulletIteratorBegin = std::remove_if(bullets.begin(), bullets.end(),
-     [](Bullet* bullet){
-        return bullet->markedToDestroy;
-     });
-
-    for(Enemy* enemy: enemies){
-        if(enemy->markedToDestroy){
-            enemy->destroy();
+    for(auto it = bullets.begin(); it != bullets.end();){
+        if((*it)->markedToDestroy){
+            delete *it;
+            it = bullets.erase(it);
+        }
+        else{
+            it++;
         }
     }
-
-    enemies.erase(deadEnemyIteratorBegin, enemies.end());
     
-    player->collides(enemies);
 }
 
 void Game::render()
@@ -177,7 +147,7 @@ void Game::render()
 
      for(Bullet* bullet: bullets){
          
-         window->draw(bullet->getShape());
+         window->draw(bullet->getSprite());
      }
     
     window->draw(player->getSprite());

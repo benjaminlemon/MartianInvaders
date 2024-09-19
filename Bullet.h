@@ -5,7 +5,6 @@
 #include "Enemy.h"
 
 class Enemy;
-
 class Player;
 class Bullet{
     private:
@@ -13,17 +12,28 @@ class Bullet{
         int speed;
         sf::RectangleShape shape;
         sf::Vector2f position;
-        bool markedToDestroy;
+        std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+        sf::Sprite sprite;
+
+        void initializeTexture(std::string texturePath);
+        void initializeSprite();
 
     public:
-//        Bullet(Player &player);
+        //data
+        bool markedToDestroy = false;
+
+        //Constructors
         Bullet(sf::Vector2f playerPosition);
-        int getDmg(){return dmg;};
-        void updatePosition();
-        sf::Vector2f getPosition(){return position;};
-        sf::RectangleShape getShape(){return shape;};
+
+        //setters
+        void updatePosition(float dt);
         void collides(const std::vector<Enemy*> &enemies);
         void destroy();
+
+        //getters
+        int getDmg(){return dmg;};
+        sf::Vector2f getPosition() const {return position;};
+        sf::Sprite& getSprite(){return sprite;};
 };
 
 #endif

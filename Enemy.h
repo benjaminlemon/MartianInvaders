@@ -38,11 +38,10 @@ class Enemy{
         void updateHealth(Bullet* bullet);
         void updateHealth(Player* player);
         void destroy();
-        void collides(std::vector<Bullet*> bullets, sf::RenderWindow* window);
-        void collides(Player* &player, sf::RenderWindow* window);
+        void collides(std::vector<Bullet*> bullets);
+        void collides(Player* &player);
 
         //getters
-        sf::RectangleShape getShape()const;
         sf::Vector2f getPosition() const;
         int getHealth(){return health;};
         sf::Sprite& getSprite(){return sprite;};
