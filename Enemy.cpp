@@ -23,7 +23,7 @@ void Enemy::updatePosition(float dt, float windowHeight)
 {
     sprite.move(0.f, speed*dt);
 
-    if(sprite.getPosition().y > windowHeight){
+    if(sprite.getPosition().y - height> windowHeight){
             markedToDestroy = true;
     }
 }

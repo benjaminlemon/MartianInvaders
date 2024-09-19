@@ -30,6 +30,21 @@ void Game::processEvents()
             case sf::Event::Closed:
                 window->close();
                 break;
+            
+            case sf::Event::KeyPressed:
+                if(event.key.scancode == sf::Keyboard::Scan::A){
+                    player->getSprite().setTextureRect(sf::IntRect(31,0,30,32));
+                }
+                else if(event.key.scancode == sf::Keyboard::Scan::D){
+                    player->getSprite().setTextureRect(sf::IntRect(92,0,29,32));
+                }
+                break;
+            
+            case sf::Event::KeyReleased:
+                if(event.key.scancode == sf::Keyboard::Scan::A || event.key.scancode == sf::Keyboard::Scan::D){
+                    player->getSprite().setTextureRect(sf::IntRect(59,0,30,32));
+                }
+                break;
 
             default:
                 break;
@@ -39,17 +54,12 @@ void Game::processEvents()
     //smooth movement with keyboard
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)||sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-
         player->move(window->getSize().x,-1,0);
-        player->getSprite().setTextureRect(sf::IntRect(31,0,30,32));
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)||sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-
-        player->move(window->getSize().x,1,0);
-        player->getSprite().setTextureRect(sf::IntRect(92,0,29,32));
-        
+        player->move(window->getSize().x,1,0);        
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)||sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
