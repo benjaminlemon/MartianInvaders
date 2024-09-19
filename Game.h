@@ -24,8 +24,11 @@ class Game{
         sf::Clock gameClock;
         sf::Clock enemySeedClock;
         sf::Clock fireRate;
+        sf::Clock backgroundClock;
         sf::RenderWindow* window = nullptr;
         sf::Event event;
+        sf::Texture backgroundTexture;
+        sf::Sprite background1, background2;
         float WINDOW_WIDTH;
         float WINDOW_HEIGHT;
 
@@ -36,6 +39,10 @@ class Game{
         void processEvents();
         void update();
         void render();
+        void initializeTexture(std::string filepath);
+        void intializeSprite();
+        void updateBackground();
+        void renderBackground();
     
     public:
         float dt = 0;

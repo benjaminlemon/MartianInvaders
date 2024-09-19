@@ -36,11 +36,6 @@ void Player::move(float boundary, float x, float y){
     
 }
 
-//Bullet* Player::shoot(){
-//    Bullet* bullet = new Bullet(*this);
-//    return bullet;
-//}
-
 void Player::updateHealth(){
     health -= 50;
     this->destroy();

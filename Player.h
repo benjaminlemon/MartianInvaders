@@ -23,7 +23,6 @@ class Player{
         sf::CircleShape shape;
         Player();
         void move(float boundary, float x, float y);
-        Bullet* shoot();
         void updateHealth();
         void destroy();
         sf::Vector2f getPosition(){

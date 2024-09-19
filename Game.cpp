@@ -13,7 +13,10 @@ void Game::initialize()
     
     //create player
     player = new Player();
-    
+
+    initializeTexture("./textures/backgroundSpace.png");
+    intializeSprite();
+
     createEnemies();
 }
 
@@ -90,6 +93,8 @@ void Game::processEvents()
 
 void Game::update()
 {
+    updateBackground();
+
     //create new enemies
     float timeElapsed = enemySeedClock.getElapsedTime().asSeconds();
     if(timeElapsed >=1.f){
@@ -143,7 +148,6 @@ void Game::update()
             it++;
         }
     }
-    
 }
 
 void Game::render()
@@ -151,6 +155,8 @@ void Game::render()
     window->clear(sf::Color::Black);
     
     //Render
+    renderBackground();
+
     for(Enemy* enemy: enemies){
         window->draw(enemy->getSprite());
     }
@@ -181,3 +187,49 @@ void Game::run()
     }
 }
 
+void Game::initializeTexture(std::string filepath)
+{
+    if(!backgroundTexture.loadFromFile(filepath)){
+        std::cerr << "Background did not load!" << std::endl;
+    }
+
+    backgroundTexture.setSmooth(true);
+}
+
+void Game::intializeSprite()
+{
+    background1.setTexture(backgroundTexture);
+    background2.setTexture(backgroundTexture);
+
+    float scaleFactorX = WINDOW_WIDTH/backgroundTexture.getSize().x;
+    float scaleFactorY = WINDOW_HEIGHT/backgroundTexture.getSize().y;
+    background1.setScale(scaleFactorX, scaleFactorY);
+    background2.setScale(scaleFactorX, scaleFactorY);
+
+    background2.setPosition(0.f, 0-WINDOW_HEIGHT);
+}
+
+void Game::updateBackground()
+{
+    float dt = backgroundClock.getElapsedTime().asSeconds();
+
+    background1.move(0.f, dt*20.f);
+    background2.move(0.f, dt*20.f);
+
+    if(background1.getPosition().y > WINDOW_HEIGHT){
+        background1.setPosition(0.f, 0.f);
+    }
+    
+    if(background2.getPosition().y > WINDOW_HEIGHT){
+        background2.setPosition(0.f, 0.f);
+    }
+
+    backgroundClock.restart();
+
+}
+
+void Game::renderBackground()
+{
+    window->draw(background1);
+    window->draw(background2);
+}
