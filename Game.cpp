@@ -76,22 +76,22 @@ void Game::processEvents()
     //smooth movement with keyboard
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)||sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        player->move(window->getSize().x,-1,0);
+        player->move(window->getSize().x,window->getSize().y,-1,0);
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)||sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        player->move(window->getSize().x,1,0);        
+        player->move(window->getSize().x,window->getSize().y,1,0);
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)||sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        player->move(window->getSize().y,0,-1);
+        player->move(window->getSize().x,window->getSize().y,0,-1);
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)||sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        player->move(window->getSize().y,0,1);
+        player->move(window->getSize().x,window->getSize().y,0,1);
     }
 
     //SHOOT
