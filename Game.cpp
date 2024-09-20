@@ -175,6 +175,7 @@ void Game::update()
     //update onscreen text
     textScore.setString("Score: " + std::to_string(score));
     textEnemyScore.setString("Earths Health: " + std::to_string(10-enemyScore));
+    textHighScore.setString("High Score: " + std::to_string(score));
         
 }
 
@@ -203,6 +204,7 @@ void Game::render()
 
     if(gameOver){
         window->draw(endGameMenu);
+        window->draw(textHighScore);
         window->draw(restartOption);
         window->draw(exitOption);
         window->draw(textExit);
@@ -323,28 +325,37 @@ void Game::initializeEndGameMenuText()
 
     textRestart.setFont(font);
     textExit.setFont(font);
+    textHighScore.setFont(font);
 
 
     textExit.setString("Exit");
     textRestart.setString("Restart");
+    textHighScore.setString("High Score!  ");
 
     // set the character size
     textExit.setCharacterSize(75);
     textRestart.setCharacterSize(75);
+    textHighScore.setCharacterSize(75);
 
     // set the color
     textExit.setFillColor(sf::Color::White);
     textRestart.setFillColor(sf::Color::White);
+    textHighScore.setFillColor(sf::Color::White);
 
     // set the text style
     textExit.setStyle(sf::Text::Bold);
     textRestart.setStyle(sf::Text::Bold);
+    textHighScore.setStyle(sf::Text::Bold);
 
     float exitOptionPositionY = .5*WINDOW_HEIGHT + .25*endGameMenu.getSize().y;
+
+    // float exitOptionPositionY = .5*WINDOW_HEIGHT;
 
     textExit.setPosition(WINDOW_WIDTH/2 - (textExit.getGlobalBounds().width/2), exitOptionPositionY);
 
     textRestart.setPosition(WINDOW_WIDTH/2 -(textRestart.getGlobalBounds().width/2), .5*WINDOW_HEIGHT);
+
+    textHighScore.setPosition(WINDOW_WIDTH/2 -(textHighScore.getGlobalBounds().width/2), .25*WINDOW_HEIGHT);
 }
 
 void Game::initializeGameText()

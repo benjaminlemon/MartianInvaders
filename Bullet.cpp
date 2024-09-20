@@ -23,8 +23,8 @@ Bullet::Bullet(sf::Vector2f playerPosition)
     speed = 300;
     initializeTexture("./textures/bullets.png");
     initializeSprite();
-    float xSize = this->getSprite().getTexture()->getSize().x;
-    float ySize = this->getSprite().getTexture()->getSize().y;
+    // float xSize = this->getSprite().getTexture()->getSize().x;
+    // float ySize = this->getSprite().getTexture()->getSize().y;
     position = sf::Vector2f(playerPosition);
     sprite.setPosition(position);
 

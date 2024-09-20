@@ -6,7 +6,7 @@
 Enemy::Enemy(float windowSizeX)
 {
     health = 1;
-    speed = 100;
+    speed = rand()%200 + 50;
     
     initializeTexture("./textures/Ship1.png");
     initializeSprite();

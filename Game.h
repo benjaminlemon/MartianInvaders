@@ -32,7 +32,7 @@ class Game{
         sf::Sprite background1, background2;
         sf::RectangleShape endGameMenu, restartOption, exitOption;
         sf::Font font;
-        sf::Text textRestart, textExit, textScore, textEnemyScore;
+        sf::Text textRestart, textExit, textScore, textEnemyScore,textHighScore;
 
         sf::RenderWindow* window = nullptr;
         float WINDOW_WIDTH;
