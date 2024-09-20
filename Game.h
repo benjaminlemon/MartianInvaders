@@ -21,16 +21,24 @@ class Game{
         std::vector<Bullet*> bullets;
         std::vector<Enemy*> enemies;
         Player* player;
+
         sf::Clock gameClock;
         sf::Clock enemySeedClock;
         sf::Clock fireRate;
         sf::Clock backgroundClock;
-        sf::RenderWindow* window = nullptr;
+
         sf::Event event;
         sf::Texture backgroundTexture;
         sf::Sprite background1, background2;
+        sf::RectangleShape endGameMenu, restartOption, exitOption;
+        sf::Font font;
+        sf::Text textRestart, textExit, textScore, textEnemyScore;
+
+        sf::RenderWindow* window = nullptr;
         float WINDOW_WIDTH;
         float WINDOW_HEIGHT;
+
+        bool gameOver = false;
 
 
         //Functions
@@ -43,12 +51,20 @@ class Game{
         void intializeSprite();
         void updateBackground();
         void renderBackground();
+        void initializeEndGameMenu();
+        void initializeFont();
+        void initializeEndGameMenuText();
+        void initializeGameText();
+        void runGameOverMenu();
     
     public:
         float dt = 0;
+        int score = 0;
+        int enemyScore = 0;
         //constructor
         Game();
         void run();
+        void restart();
 };
 
 #endif

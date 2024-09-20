@@ -19,12 +19,13 @@ Enemy::Enemy(float windowSizeX)
 
 }
 
-void Enemy::updatePosition(float dt, float windowHeight)
+void Enemy::updatePosition(float dt, float windowHeight, int &enemyScore)
 {
     sprite.move(0.f, speed*dt);
 
     if(sprite.getPosition().y - height> windowHeight){
             markedToDestroy = true;
+            enemyScore++;
     }
 }
 
@@ -63,7 +64,7 @@ void Enemy::updateHealth(Player *player)
     this->health = 0;
 }
  */
-void Enemy::collides(std::vector<Bullet *> bullets)
+void Enemy::collides(std::vector<Bullet *> bullets, int &score)
 {
     for(auto it = bullets.begin(); it != bullets.end();it++){
         Bullet* bullet = *it;
@@ -71,6 +72,7 @@ void Enemy::collides(std::vector<Bullet *> bullets)
         if(this->getSprite().getGlobalBounds().intersects(bullet->getSprite().getGlobalBounds())){
 
             markedToDestroy = true;
+            score++;
         }
     }
 }

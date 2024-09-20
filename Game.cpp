@@ -16,6 +16,10 @@ void Game::initialize()
 
     initializeTexture("./textures/backgroundSpace.png");
     intializeSprite();
+    initializeEndGameMenu();
+    initializeFont();
+    initializeEndGameMenuText();
+    initializeGameText();
 
     createEnemies();
 }
@@ -48,6 +52,21 @@ void Game::processEvents()
                     player->getSprite().setTextureRect(sf::IntRect(59,0,30,32));
                 }
                 break;
+
+            case sf::Event::MouseButtonPressed:
+                if(event.mouseButton.button == sf::Mouse::Left && gameOver){
+                    float x = event.mouseButton.x;
+                    float y = event.mouseButton.y;
+
+                    if(textExit.getGlobalBounds().contains(x, y)){
+                        window->close();
+                    }
+
+                    if(textRestart.getGlobalBounds().contains(x,y)){
+                        restart();
+                    }
+                    
+                }
 
             default:
                 break;
@@ -104,7 +123,7 @@ void Game::update()
 
     //update Enemy Position
     for(Enemy* enemy:enemies){
-        enemy->updatePosition(dt, WINDOW_HEIGHT);
+        enemy->updatePosition(dt, WINDOW_HEIGHT, enemyScore);
     }
 
     // update bullet position
@@ -114,7 +133,7 @@ void Game::update()
 
     //update enemy collisions
     for(Enemy* enemy: enemies){
-        enemy->collides(bullets);
+        enemy->collides(bullets, score);
         enemy->collides(player);
     }
 
@@ -148,6 +167,15 @@ void Game::update()
             it++;
         }
     }
+
+    if(player->isDead || enemyScore == 10){
+        gameOver = true;
+    }
+
+    //update onscreen text
+    textScore.setString("Score: " + std::to_string(score));
+    textEnemyScore.setString("Earths Health: " + std::to_string(10-enemyScore));
+        
 }
 
 void Game::render()
@@ -168,7 +196,21 @@ void Game::render()
     
     window->draw(player->getSprite());
 
+    window->draw(textScore);
+    window->draw(textEnemyScore);
+
+
+
+    if(gameOver){
+        window->draw(endGameMenu);
+        window->draw(restartOption);
+        window->draw(exitOption);
+        window->draw(textExit);
+        window->draw(textRestart);
+    }
     window->display();
+    
+    
 }
 
 Game::Game()
@@ -217,11 +259,11 @@ void Game::updateBackground()
     background2.move(0.f, dt*20.f);
 
     if(background1.getPosition().y > WINDOW_HEIGHT){
-        background1.setPosition(0.f, 0.f);
+        background1.setPosition(0.f, 0.f - WINDOW_HEIGHT);
     }
     
     if(background2.getPosition().y > WINDOW_HEIGHT){
-        background2.setPosition(0.f, 0.f);
+        background2.setPosition(0.f, 0.f - WINDOW_HEIGHT);
     }
 
     backgroundClock.restart();
@@ -232,4 +274,117 @@ void Game::renderBackground()
 {
     window->draw(background1);
     window->draw(background2);
+}
+
+void Game::initializeEndGameMenu()
+{
+    float endGameMenuScale = .875f;
+    float endGameMenuPosX = (WINDOW_WIDTH*(1-endGameMenuScale)/2.f);
+    float endGameMenuPosY = (WINDOW_HEIGHT*(1-endGameMenuScale)/2.f);
+
+    sf::Vector2f endGameMenuPosition = sf::Vector2f(endGameMenuPosX, endGameMenuPosY);
+
+    //End Game Menu
+    endGameMenu = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH*endGameMenuScale, WINDOW_HEIGHT*endGameMenuScale));
+    endGameMenu.setFillColor(sf::Color::Black);
+    endGameMenu.setPosition(endGameMenuPosition);
+
+    //Restart
+    restartOption = sf::RectangleShape(sf::Vector2f(endGameMenu.getSize().x, endGameMenu.getSize().y));
+    restartOption.setScale(1.f,.25f);
+    restartOption.setFillColor(sf::Color::Black);
+    restartOption.setPosition(endGameMenuPosition.x, .5*WINDOW_HEIGHT);
+
+    //Exit 
+    float exitOptionPositionY = .5*WINDOW_HEIGHT + .25*endGameMenu.getSize().y;
+
+    exitOption = sf::RectangleShape(sf::Vector2f(endGameMenu.getSize().x, endGameMenu.getSize().y));
+    exitOption.setScale(1.f, .25f);
+    exitOption.setFillColor(sf::Color::Black);
+    exitOption.setPosition(endGameMenuPosition.x, exitOptionPositionY);
+
+}
+
+void Game::initializeFont()
+{
+    if (!font.loadFromFile("./ttf/PixelifySans-Regular.ttf"))
+    {
+        std::cerr << "Font did not load!" << std::endl;
+    }
+}
+
+void Game::initializeEndGameMenuText()
+{
+    float endGameMenuScale = .875f;
+    float endGameMenuPosX = (WINDOW_WIDTH*(1-endGameMenuScale)/2.f);
+    float endGameMenuPosY = (WINDOW_HEIGHT*(1-endGameMenuScale)/2.f);
+
+    sf::Vector2f endGameMenuPosition = sf::Vector2f(endGameMenuPosX, endGameMenuPosY);
+
+    textRestart.setFont(font);
+    textExit.setFont(font);
+
+
+    textExit.setString("Exit");
+    textRestart.setString("Restart");
+
+    // set the character size
+    textExit.setCharacterSize(75);
+    textRestart.setCharacterSize(75);
+
+    // set the color
+    textExit.setFillColor(sf::Color::White);
+    textRestart.setFillColor(sf::Color::White);
+
+    // set the text style
+    textExit.setStyle(sf::Text::Bold);
+    textRestart.setStyle(sf::Text::Bold);
+
+    float exitOptionPositionY = .5*WINDOW_HEIGHT + .25*endGameMenu.getSize().y;
+
+    textExit.setPosition(WINDOW_WIDTH/2 - (textExit.getGlobalBounds().width/2), exitOptionPositionY);
+
+    textRestart.setPosition(WINDOW_WIDTH/2 -(textRestart.getGlobalBounds().width/2), .5*WINDOW_HEIGHT);
+}
+
+void Game::initializeGameText()
+{
+    textScore.setFont(font);
+    textEnemyScore.setFont(font);
+
+    textScore.setString("Score: ");
+    textEnemyScore.setString("Earth's Health: ");
+
+    textScore.setCharacterSize(25);
+    textEnemyScore.setCharacterSize(25);
+
+    textScore.setStyle(sf::Text::Bold);
+    textEnemyScore.setStyle(sf::Text::Bold);
+
+    textScore.setPosition(0,0);
+    textEnemyScore.setPosition(0, textScore.getGlobalBounds().height + 10);
+}
+
+void Game::restart()
+{
+    //scores
+    score = 0;
+    enemyScore = 0;
+    gameOver = false;
+
+    //enemies
+    for(Enemy* enemy:enemies){
+        enemy->destroy();
+    }
+    enemies.erase(enemies.begin(), enemies.end());
+
+    //bullets
+    for(Bullet* bullet:bullets){
+        bullet->destroy();
+    }
+    bullets.erase(bullets.begin(), bullets.end());
+
+    //player
+    player->isDead = false;
+    player->getSprite().setPosition(400.f, 500.f);
 }

@@ -10,7 +10,7 @@ Player::Player(){
     initializeTexture();
     initializeSprite();
     sprite.setPosition(position);
-    isPlayerDead = false;
+    isDead = false;
 }
 
 void Player::move(float boundary, float x, float y){
@@ -18,7 +18,7 @@ void Player::move(float boundary, float x, float y){
     float xSize = this->getSprite().getTexture()->getSize().x / 2.7;
     float ySize = this->getSprite().getTexture()->getSize().y;
 
-    if(isPlayerDead){
+    if(isDead){
         this->getSprite().move(0,0);
     }
     else if(this->getSprite().getPosition().x > boundary - xSize){
@@ -45,7 +45,7 @@ void Player::destroy(){
     float xSize = this->getSprite().getTexture()->getSize().x;
     float ySize = this->getSprite().getTexture()->getSize().y;
     this->getSprite().setPosition(sf::Vector2f(xSize+200,ySize-200));
-    this->isPlayerDead = true;
+    this->isDead = true;
 }
 
 void Player::collides(std::vector<Enemy*> enemies){

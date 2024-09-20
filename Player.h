@@ -18,7 +18,7 @@ class Player{
         sf::Texture texture;
         
     public:
-        bool isPlayerDead;
+        bool isDead;
         sf::Sprite sprite;
         sf::CircleShape shape;
         Player();
