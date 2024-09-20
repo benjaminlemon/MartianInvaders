@@ -20,7 +20,7 @@ void Game::initialize()
     initializeFont();
     initializeEndGameMenuText();
     initializeGameText();
-
+    initializeSounds();
     createEnemies();
 }
 
@@ -104,6 +104,7 @@ void Game::processEvents()
             Bullet* bullet = new Bullet(player->getPosition());
 
             bullets.push_back(bullet);
+            pewPew.play();
             fireRate.restart();
         }
     }
@@ -209,6 +210,7 @@ void Game::render()
         window->draw(exitOption);
         window->draw(textExit);
         window->draw(textRestart);
+        music.stop();
     }
     window->display();
     
@@ -376,6 +378,21 @@ void Game::initializeGameText()
     textEnemyScore.setPosition(0, textScore.getGlobalBounds().height + 10);
 }
 
+void Game::initializeSounds()
+{
+    if (!music.openFromFile("./sounds/backgroundMusic.ogg")){
+        std::cerr << "Music not loaded" << std::endl; // error
+    }
+
+    music.play();
+
+     if (!soundBuffer.loadFromFile("sounds/pewpew_1.wav")){
+        std::cerr << "Sound not loaded" << std::endl;
+     }
+
+     pewPew.setBuffer(soundBuffer);
+}
+
 void Game::restart()
 {
     //scores
@@ -398,4 +415,7 @@ void Game::restart()
     //player
     player->isDead = false;
     player->getSprite().setPosition(400.f, 500.f);
+
+    //music
+    music.play();
 }

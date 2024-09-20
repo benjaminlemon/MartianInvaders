@@ -6,6 +6,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/Audio.hpp>
 #include <vector> 
 #include <algorithm>
 #include "Enemy.h"
@@ -33,7 +34,9 @@ class Game{
         sf::RectangleShape endGameMenu, restartOption, exitOption;
         sf::Font font;
         sf::Text textRestart, textExit, textScore, textEnemyScore,textHighScore;
-
+        sf::Music music;
+        sf::SoundBuffer soundBuffer;
+        sf::Sound pewPew;
         sf::RenderWindow* window = nullptr;
         float WINDOW_WIDTH;
         float WINDOW_HEIGHT;
@@ -55,6 +58,7 @@ class Game{
         void initializeFont();
         void initializeEndGameMenuText();
         void initializeGameText();
+        void initializeSounds();
         void runGameOverMenu();
     
     public:
