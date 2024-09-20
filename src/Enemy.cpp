@@ -8,7 +8,7 @@ Enemy::Enemy(float windowSizeX)
     health = 1;
     speed = rand()%200 + 50;
     
-    initializeTexture("./textures/Ship1.png");
+    initializeTexture("resources/textures/Ship1.png");
     initializeSprite();
 
     width = getSprite().getTexture()->getSize().x;

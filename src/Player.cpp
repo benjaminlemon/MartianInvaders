@@ -60,7 +60,7 @@ void Player::collides(std::vector<Enemy*> enemies){
 
 void Player::initializeTexture()
 {
-    if(!texture.loadFromFile("./textures/combatjet-32x32.png")){
+    if(!texture.loadFromFile("resources/textures/combatjet-32x32.png")){
         std::cerr << "Could not load player texture!" << std::endl;
     };
     texture.setSmooth(false);

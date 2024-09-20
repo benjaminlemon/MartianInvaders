@@ -14,7 +14,7 @@ void Game::initialize()
     //create player
     player = new Player();
 
-    initializeTexture("./textures/backgroundSpace.png");
+    initializeTexture("resources/textures/backgroundSpace.png");
     intializeSprite();
     initializeEndGameMenu();
     initializeFont();
@@ -311,7 +311,7 @@ void Game::initializeEndGameMenu()
 
 void Game::initializeFont()
 {
-    if (!font.loadFromFile("./ttf/PixelifySans-Regular.ttf"))
+    if (!font.loadFromFile("resources/fonts/PixelifySans-Regular.ttf"))
     {
         std::cerr << "Font did not load!" << std::endl;
     }
@@ -380,13 +380,13 @@ void Game::initializeGameText()
 
 void Game::initializeSounds()
 {
-    if (!music.openFromFile("./sounds/backgroundMusic.ogg")){
+    if (!music.openFromFile("resources/sounds/backgroundMusic.ogg")){
         std::cerr << "Music not loaded" << std::endl; // error
     }
 
     music.play();
 
-     if (!soundBuffer.loadFromFile("sounds/pewpew_1.wav")){
+     if (!soundBuffer.loadFromFile("resources/sounds/pewpew_1.wav")){
         std::cerr << "Sound not loaded" << std::endl;
      }
 

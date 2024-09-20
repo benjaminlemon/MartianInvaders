@@ -38,8 +38,5 @@
 *.xcodeproj
 Makefile
 martianInvaders
-<<<<<<< Updated upstream
-githubMerging.md
-=======
 CMakeLists.txt
->>>>>>> Stashed changes
+mi
