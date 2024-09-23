@@ -1,23 +1,22 @@
 #include "../include/GameState.h"
-#include "../include/GameStateManager.h"
-#include <SFML/Graphics.hpp>
+// #include "../include/GameStateManager.h"
 
 class GameRestartState;
 
-class EndGameMenuState : public GameState {
+class GameEndMenuState : public GameState {
     private:
         sf::Text textHighScore, textRestart, textExit;
         sf::RectangleShape endGameMenu;
 
     public:
-        EndGameMenuState(GameStateManager& gameStateManager) : GameState(gameStateManager){};
+        GameEndMenuState(GameStateManager& gameStateManager) : GameState(gameStateManager){};
+        void initializeState() override;
         void handleInput(sf::RenderWindow* &window) override;
         void update(float deltaTime) override;
         void render(sf::RenderWindow* &window) override;
-        void initializeState() override;
 };
 
-void EndGameMenuState::handleInput(sf::RenderWindow* &window){
+void GameEndMenuState::handleInput(sf::RenderWindow* &window){
     sf::Event event;
     while(window->pollEvent(event)){
         switch(event.type){
@@ -36,7 +35,7 @@ void EndGameMenuState::handleInput(sf::RenderWindow* &window){
 
                     if(textRestart.getGlobalBounds().contains(x,y)){
                         // changestate to play restart
-                        gameStateManager.changeGameState(std::make_unique<GameRestartState>(gameStateManager));
+                        // gameStateManager.changeGameState(std::make_unique<GameRestartState>(gameStateManager));
                     }
                 }
 
@@ -46,12 +45,12 @@ void EndGameMenuState::handleInput(sf::RenderWindow* &window){
     }   
 };
 
-void EndGameMenuState::update(float deltaTime)
+void GameEndMenuState::update(float deltaTime)
 {
 
 }
 
-void EndGameMenuState::render(sf::RenderWindow* &window)
+void GameEndMenuState::render(sf::RenderWindow* &window)
 {
     window->clear(sf::Color::Black);
 
@@ -64,6 +63,6 @@ void EndGameMenuState::render(sf::RenderWindow* &window)
     window->display();
 }
 
-void EndGameMenuState::initializeState()
+void GameEndMenuState::initializeState()
 {
 }
