@@ -14,9 +14,13 @@ class Bullet{
         sf::Vector2f position;
         std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
         sf::Sprite sprite;
+        sf::Sound pewPew;
+        sf::SoundBuffer soundBuffer;
+
 
         void initializeTexture(std::string texturePath);
         void initializeSprite();
+        void initializeSound();
 
     public:
         //data

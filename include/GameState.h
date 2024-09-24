@@ -5,6 +5,10 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 
+#include "Player.h"
+#include "Enemy.h"
+#include "Bullet.h"
+
 class GameStateManager;
 
 class GameState{

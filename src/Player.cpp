@@ -74,3 +74,15 @@ void Player::initializeSprite()
 
     sprite.scale(2.f, 2.f);
 }
+
+Bullet* Player::shoot()
+{
+        //SHOOT
+    float fireRateTime = fireRate.getElapsedTime().asSeconds();
+
+    if(fireRateTime >=.25f){
+        Bullet* bullet = new Bullet(getPosition());
+
+        fireRate.restart();
+    }
+}

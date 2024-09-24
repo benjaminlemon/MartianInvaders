@@ -1,5 +1,7 @@
 #include "Game.h"
 
+//Game
+//GameRunState
 void Game::initialize()
 {
     window = new sf::RenderWindow(sf::VideoMode(800,600), "Martian Invasion");
@@ -24,6 +26,7 @@ void Game::initialize()
     createEnemies();
 }
 
+//GameRunState->update->createEnemies
 void Game::createEnemies()
 {
     Enemy* enemy = new Enemy(window->getSize().x);
@@ -233,6 +236,7 @@ void Game::run()
     }
 }
 
+//GameRunState->initialize()
 void Game::initializeTexture(std::string filepath)
 {
     if(!backgroundTexture.loadFromFile(filepath)){
@@ -242,6 +246,7 @@ void Game::initializeTexture(std::string filepath)
     backgroundTexture.setSmooth(true);
 }
 
+//GameRunState->initialize()
 void Game::intializeSprite()
 {
     background1.setTexture(backgroundTexture);
@@ -255,6 +260,7 @@ void Game::intializeSprite()
     background2.setPosition(0.f, 0-WINDOW_HEIGHT);
 }
 
+//GameRunState->update()
 void Game::updateBackground()
 {
     float dt = backgroundClock.getElapsedTime().asSeconds();
@@ -274,12 +280,14 @@ void Game::updateBackground()
 
 }
 
+//GameRunState->render()
 void Game::renderBackground()
 {
     window->draw(background1);
     window->draw(background2);
 }
 
+//GameEndMenuState->initialize()
 void Game::initializeEndGameMenu()
 {
     float endGameMenuScale = .875f;
@@ -309,6 +317,7 @@ void Game::initializeEndGameMenu()
 
 }
 
+//Game or main? want same font for all of the game I think...
 void Game::initializeFont()
 {
     if (!font.loadFromFile("resources/fonts/PixelifySans-Regular.ttf"))
@@ -317,6 +326,7 @@ void Game::initializeFont()
     }
 }
 
+//GameEndMenu->initialize()
 void Game::initializeEndGameMenuText()
 {
     float endGameMenuScale = .875f;
@@ -360,6 +370,7 @@ void Game::initializeEndGameMenuText()
     textHighScore.setPosition(WINDOW_WIDTH/2 -(textHighScore.getGlobalBounds().width/2), .25*WINDOW_HEIGHT);
 }
 
+//GameRunState->initialize()
 void Game::initializeGameText()
 {
     textScore.setFont(font);
@@ -378,6 +389,8 @@ void Game::initializeGameText()
     textEnemyScore.setPosition(0, textScore.getGlobalBounds().height + 10);
 }
 
+//GameRunState->initialize()
+//Bullet->initialize()
 void Game::initializeSounds()
 {
     if (!music.openFromFile("resources/sounds/backgroundMusic.ogg")){
@@ -393,6 +406,7 @@ void Game::initializeSounds()
      pewPew.setBuffer(soundBuffer);
 }
 
+//GameRestartState
 void Game::restart()
 {
     //scores

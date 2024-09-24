@@ -17,6 +17,15 @@ void Bullet::initializeSprite()
     sprite.scale(1.f,.2f);
 }
 
+void Bullet::initializeSound()
+{
+     if (!soundBuffer.loadFromFile("resources/sounds/pewpew_1.wav")){
+        std::cerr << "Sound not loaded" << std::endl;
+     }
+
+     pewPew.setBuffer(soundBuffer);
+}
+
 Bullet::Bullet(sf::Vector2f playerPosition)
 {
     dmg = 1;
@@ -27,6 +36,7 @@ Bullet::Bullet(sf::Vector2f playerPosition)
     // float ySize = this->getSprite().getTexture()->getSize().y;
     position = sf::Vector2f(playerPosition);
     sprite.setPosition(position);
+    pewPew.play();
 
 }
 

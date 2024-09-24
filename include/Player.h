@@ -16,6 +16,7 @@ class Player{
         int health;
         sf::Vector2f position;
         sf::Texture texture;
+        sf::Clock fireRate;
         
     public:
         bool isDead;
@@ -35,6 +36,7 @@ class Player{
         void initializeTexture();
         void initializeSprite();
         sf::Sprite& getSprite(){return sprite;};
+        Bullet* shoot();
 
 };
 
