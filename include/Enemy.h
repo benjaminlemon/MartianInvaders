@@ -34,7 +34,7 @@ class Enemy{
         Enemy(int health, int speed, sf::Vector2f position, std::string texturePath);
         
         //setters
-        void updatePosition(float dt, float windowHeight, int &enemyScore);
+        void updatePosition(float dt, float windowHeight);
         void updateHealth(Bullet* bullet);
         void updateHealth(Player* player);
         void destroy();

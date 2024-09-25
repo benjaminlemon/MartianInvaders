@@ -12,7 +12,7 @@
 class GameStateManager;
 
 class GameState{
-    private:
+    protected:
         GameStateManager& gameStateManager;
 
     public:
@@ -25,6 +25,8 @@ class GameState{
         virtual void update(float deltaTime) = 0;
 
         virtual void render(sf::RenderWindow* &window) = 0;
+
+        virtual void terminateState() = 0;
 
         ~GameState() = default;
 };

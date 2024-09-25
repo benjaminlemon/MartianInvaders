@@ -10,7 +10,7 @@ class GameEndMenuState : public GameState {
 
     public:
         GameEndMenuState(GameStateManager& gameStateManager) : GameState(gameStateManager){};
-        void initializeState() override;
+        // void initializeState() override;
         void handleInput(sf::RenderWindow* &window) override;
         void update(float deltaTime) override;
         void render(sf::RenderWindow* &window) override;

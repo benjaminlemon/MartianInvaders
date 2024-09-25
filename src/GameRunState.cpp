@@ -1,4 +1,7 @@
 #include "GameState.h"
+#include "GameStateManager.h"
+
+class GameEndMenuState;
 
 class GameRunState: public GameState{
     private:
@@ -8,6 +11,7 @@ class GameRunState: public GameState{
 
         sf::Clock gameClock;
         sf::Clock backgroundClock;
+        sf::Clock enemySpawnClock;
 
         sf::Texture backgroundTexture;
         sf::Sprite background1, background2;
@@ -73,11 +77,26 @@ class GameRunState: public GameState{
         }
 
         void spawnEnemies()
-{
-    Enemy* enemy = new Enemy(windowWidth);
-    enemies.push_back(enemy);
-}
+        {
+            Enemy* enemy = new Enemy(windowWidth);
+            enemies.push_back(enemy);
+        }
 
+        void updateBackground(float deltaTime)
+        {
+            background1.move(0.f, deltaTime*20.f);
+            background2.move(0.f, deltaTime*20.f);
+
+            if(background1.getPosition().y > windowHeight){
+                background1.setPosition(0.f, 0.f - windowHeight);
+            }
+            
+            if(background2.getPosition().y > windowHeight){
+                background2.setPosition(0.f, 0.f - windowHeight);
+            }
+
+            backgroundClock.restart();
+        };
 
     public:
         GameRunState(GameStateManager& gameStateManager) : GameState(gameStateManager) {};
@@ -154,8 +173,63 @@ class GameRunState: public GameState{
             }
         };
 
-        void update(float deltaTime) override;
+        void update(float deltaTime) override{
+            updateBackground(deltaTime);
+
+            //update enemies
+            float timeElapsed = enemySpawnClock.getElapsedTime().asSeconds();
+            if(timeElapsed >= 1.f){
+                spawnEnemies();
+                enemySpawnClock.restart();
+            }
+
+            for(Enemy* enemy:enemies){
+                enemy->updatePosition(deltaTime, windowHeight);
+            }
+
+            //update bullet position
+            for(Bullet* bullet:bullets){
+                bullet->updatePosition(deltaTime);
+            }
+
+            //update bullet collisions
+            for(Bullet* bullet: bullets){
+                bullet->collides(enemies);
+            }
+
+            //player collisions
+            player->collides(enemies);
+            
+            //clean up all dead enemies
+            for(auto it = enemies.begin(); it != enemies.end();){
+                if((*it)->markedToDestroy){
+                    delete *it;
+                    it = enemies.erase(it);
+                }
+                else{
+                    it++;
+                }
+            }
+
+            //clean up all stray bullets
+            for(auto it = bullets.begin(); it != bullets.end();){
+                if((*it)->markedToDestroy){
+                    delete *it;
+                    it = bullets.erase(it);
+                }
+                else{
+                    it++;
+                }
+            }
+
+            //update onscreen text
+            scoreText.setString("Score: " + std::to_string(score));
+    
+            //change gamestate!
+            if(player->isDead){
+                gameStateManager.changeGameState(std::make_unique<GameEndMenuState>(gameStateManager));
+            }
+        };
 
         void render(sf::RenderWindow* &window) override;
-};
 };

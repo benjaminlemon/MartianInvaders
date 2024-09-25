@@ -127,7 +127,7 @@ void Game::update()
 
     //update Enemy Position
     for(Enemy* enemy:enemies){
-        enemy->updatePosition(dt, WINDOW_HEIGHT, enemyScore);
+        enemy->updatePosition(dt, WINDOW_HEIGHT);
     }
 
     // update bullet position
