@@ -9,11 +9,10 @@ class GameEndMenuState : public GameState {
         sf::RectangleShape endGameMenu;
 
     public:
-        GameEndMenuState(GameStateManager& gameStateManager) : GameState(gameStateManager){};
         // void initializeState() override;
-        void handleInput(sf::RenderWindow* &window) override;
-        void update(float deltaTime) override;
-        void render(sf::RenderWindow* &window) override;
+        void handleInput(sf::RenderWindow* &window);
+        void update(float deltaTime);
+        void render(sf::RenderWindow* &window);
 };
 
 void GameEndMenuState::handleInput(sf::RenderWindow* &window){
@@ -63,6 +62,6 @@ void GameEndMenuState::render(sf::RenderWindow* &window)
     window->display();
 }
 
-void GameEndMenuState::initializeState()
-{
-}
+// void GameEndMenuState::initializeState()
+// {
+// }
